@@ -1,0 +1,2027 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="theme-color" content="#087cf2">
+<title>PANN STORE — Marketplace Digital Premium</title>
+
+<style>
+:root{
+  --primary:#087cf2;
+  --primary2:#22c8ff;
+  --purple:#a855f7;
+  --pink:#ec4899;
+  --blue-soft:#eaf6ff;
+  --bg:#f5f9fd;
+  --card:#fff;
+  --text:#101828;
+  --muted:#667085;
+  --border:#e7edf4;
+  --success:#16a34a;
+  --shadow:0 12px 35px rgba(16,24,40,.08);
+  --radius:18px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden;position:relative}
+button,input,select,textarea{font:inherit}
+button{border:0;cursor:pointer}
+a{text-decoration:none;color:inherit}
+img,video{max-width:100%}
+
+/* ============ BACKGROUND PARTICLES ============ */
+#particles{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+.particle{position:absolute;width:4px;height:4px;border-radius:50%;background:radial-gradient(circle,#22c8ff,#087cf2);opacity:.4;animation:floatUp linear infinite}
+@keyframes floatUp{
+  0%{transform:translateY(100vh) scale(0);opacity:0}
+  10%{opacity:.6}
+  90%{opacity:.6}
+  100%{transform:translateY(-10vh) scale(1);opacity:0}
+}
+
+/* ============ LOADER ============ */
+#loader{position:fixed;inset:0;z-index:99999;display:flex;align-items:center;justify-content:center;overflow:hidden;background:radial-gradient(circle at 50% 42%,rgba(0,190,255,.18),transparent 28%),radial-gradient(circle at 15% 85%,rgba(0,100,255,.13),transparent 30%),#050b14;transition:.8s ease}
+#loader.hide{opacity:0;visibility:hidden;transform:scale(1.04)}
+.loader-grid{position:absolute;inset:0;opacity:.07;background-image:linear-gradient(rgba(255,255,255,.15) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.15) 1px,transparent 1px);background-size:45px 45px}
+.loader-glow{position:absolute;width:420px;height:420px;border-radius:50%;background:#009dff;opacity:.13;filter:blur(100px);animation:loaderGlow 3s infinite ease-in-out}
+@keyframes loaderGlow{50%{transform:scale(1.25);opacity:.22}}
+.loader-content{position:relative;width:min(90%,430px);text-align:center;z-index:4}
+.loader-orbit{position:absolute;width:270px;height:270px;left:50%;top:48px;transform:translateX(-50%);border:1px solid rgba(80,210,255,.18);border-radius:50%;animation:orbit 10s linear infinite}
+.loader-orbit:before,.loader-orbit:after{content:"";position:absolute;width:7px;height:7px;border-radius:50%;background:#5bdcff;box-shadow:0 0 20px #00bfff}
+.loader-orbit:before{top:-3px;left:50%}
+.loader-orbit:after{right:8px;bottom:35px}
+@keyframes orbit{to{transform:translateX(-50%) rotate(360deg)}}
+.loader-logo-wrap{width:120px;height:120px;margin:auto;position:relative;display:grid;place-items:center}
+.loader-logo-ring{position:absolute;inset:0;border-radius:34px;border:1px solid rgba(86,218,255,.45);box-shadow:0 0 40px rgba(0,190,255,.18);animation:ringPulse 2.5s infinite}
+@keyframes ringPulse{50%{transform:scale(1.07);opacity:.65}}
+.loader-logo{width:88px;height:88px;border-radius:27px;display:grid;place-items:center;color:#fff;font-size:43px;font-weight:1000;background:linear-gradient(145deg,#2bd6ff,#087cf2 55%,#0755c7);box-shadow:0 18px 50px rgba(0,130,255,.4);animation:logoEnter 1s ease both}
+@keyframes logoEnter{from{transform:scale(.4);opacity:0}to{transform:scale(1);opacity:1}}
+.loader-title{margin-top:24px;font-size:clamp(32px,9vw,48px);font-weight:1000;color:white;letter-spacing:5px}
+.loader-title span{color:#58dcff}
+.loader-subtitle{margin-top:8px;color:#8ea7ba;font-size:11px;letter-spacing:4px;text-transform:uppercase}
+.loader-status{margin-top:32px;color:#d5e7f1;font-size:13px;min-height:20px}
+.loader-progress{margin-top:15px;height:8px;padding:1px;border-radius:20px;background:rgba(255,255,255,.08);overflow:hidden}
+.loader-bar{width:0%;height:100%;border-radius:20px;background:linear-gradient(90deg,#087cf2,#2ed9ff);box-shadow:0 0 20px rgba(0,190,255,.7);transition:width .08s linear}
+.loader-info{margin-top:10px;display:flex;justify-content:space-between;color:#718899;font-size:11px}
+.loader-percent{color:#fff;font-weight:800}
+.loader-float{position:absolute;font-size:22px;opacity:.7;animation:floatIcon 4s infinite ease-in-out}
+.loader-f1{left:18%;top:32%}
+.loader-f2{right:17%;top:38%;animation-delay:1s}
+.loader-f3{left:21%;bottom:25%;animation-delay:1.7s}
+.loader-f4{right:20%;bottom:28%;animation-delay:2.2s}
+@keyframes floatIcon{50%{transform:translateY(-15px) rotate(8deg)}}
+
+/* ============ HEADER ============ */
+.top-header{position:sticky;top:0;z-index:5000;background:rgba(255,255,255,.92);backdrop-filter:blur(18px);border-bottom:1px solid var(--border)}
+.header-main{max-width:1400px;margin:auto;min-height:70px;display:flex;align-items:center;gap:18px;padding:10px 22px;position:relative}
+.logo{display:flex;align-items:center;gap:10px;flex-shrink:0;cursor:pointer}
+.logo-box{width:43px;height:43px;border-radius:13px;display:grid;place-items:center;color:white;font-weight:1000;font-size:21px;background:linear-gradient(145deg,#2bd6ff,#087cf2);box-shadow:0 7px 22px rgba(8,124,242,.35);position:relative;overflow:hidden}
+.logo-box::after{content:"";position:absolute;inset:0;background:linear-gradient(120deg,transparent 30%,rgba(255,255,255,.5),transparent 70%);animation:shine 3s infinite}
+@keyframes shine{0%{transform:translateX(-100%)}100%{transform:translateX(100%)}}
+.logo-text{font-size:19px;font-weight:1000;letter-spacing:1px}
+.logo-text span{background:linear-gradient(135deg,#087cf2,#a855f7);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.search-wrap{position:relative;flex:1;max-width:620px;margin:auto}
+.search-box{height:44px;display:flex;align-items:center;gap:10px;padding:0 15px;border:1px solid var(--border);background:#f7faff;border-radius:13px;transition:.2s}
+.search-box:focus-within{background:#fff;border-color:#9ed8ff;box-shadow:0 0 0 4px rgba(8,124,242,.07)}
+.search-box input{width:100%;border:0;outline:0;background:transparent;color:var(--text)}
+.search-suggestions{position:absolute;top:51px;left:0;right:0;background:var(--card);border:1px solid var(--border);border-radius:14px;box-shadow:var(--shadow);overflow:hidden;display:none;z-index:100}
+.search-suggestions.show{display:block}
+.suggestion{padding:12px 15px;display:flex;align-items:center;gap:10px;cursor:pointer}
+.suggestion:hover{background:var(--blue-soft)}
+.header-actions{display:flex;align-items:center;gap:6px}
+.icon-btn{width:42px;height:42px;border-radius:13px;display:grid;place-items:center;background:transparent;color:var(--text);position:relative;transition:.2s}
+.icon-btn:hover{background:var(--blue-soft);color:var(--primary);transform:translateY(-1px)}
+.icon-btn .count{position:absolute;top:3px;right:3px;min-width:17px;height:17px;padding:0 4px;border-radius:20px;display:grid;place-items:center;background:#ef4444;color:#fff;font-size:9px;font-weight:800}
+.profile-mini{width:42px;height:42px;border-radius:50%;display:grid;place-items:center;color:white;font-weight:900;background:linear-gradient(145deg,#22c8ff,#087cf2)}
+
+/* ============ MARQUEE ============ */
+.marquee{background:linear-gradient(90deg,#087cf2,#a855f7,#ec4899,#087cf2);background-size:300% 100%;animation:marqueeBg 8s linear infinite;color:#fff;padding:9px 0;overflow:hidden;position:relative;z-index:1}
+@keyframes marqueeBg{to{background-position:300% 0}}
+.marquee-track{display:flex;gap:40px;white-space:nowrap;animation:scroll 25s linear infinite;font-size:12px;font-weight:800;letter-spacing:1px}
+@keyframes scroll{to{transform:translateX(-50%)}}
+.marquee-track span{display:inline-flex;align-items:center;gap:8px}
+
+/* ============ MAIN ============ */
+main{max-width:1400px;margin:auto;padding:22px;position:relative;z-index:1}
+
+/* ============ HERO ============ */
+.hero{position:relative;min-height:430px;border-radius:27px;overflow:hidden;color:white;background:radial-gradient(circle at 85% 20%,rgba(83,221,255,.45),transparent 24%),radial-gradient(circle at 15% 100%,rgba(168,85,247,.4),transparent 32%),linear-gradient(120deg,#061b38,#087cf2 55%,#a855f7);box-shadow:0 20px 55px rgba(8,124,242,.28)}
+.hero::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 50% 0,rgba(255,255,255,.15),transparent 60%);pointer-events:none}
+.hero-slide{position:absolute;inset:0;display:grid;grid-template-columns:1.1fr .9fr;align-items:center;padding:48px;opacity:0;transform:translateX(30px);transition:.7s ease;pointer-events:none}
+.hero-slide.active{opacity:1;transform:translateX(0);pointer-events:auto}
+.hero-content{position:relative;z-index:2}
+.hero-badge{display:inline-flex;align-items:center;gap:7px;padding:8px 12px;border-radius:30px;background:rgba(255,255,255,.13);border:1px solid rgba(255,255,255,.2);backdrop-filter:blur(10px);font-size:12px;animation:badgePulse 2s infinite}
+@keyframes badgePulse{50%{box-shadow:0 0 0 8px rgba(255,255,255,.05)}}
+.hero h1{margin-top:18px;max-width:650px;font-size:clamp(35px,5vw,58px);line-height:1.05;font-weight:1000}
+.hero h1 .gradient{background:linear-gradient(135deg,#70e3ff,#fff,#f0abfc);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-size:200% 200%;animation:gradientMove 4s ease infinite}
+@keyframes gradientMove{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+.hero p{margin-top:16px;max-width:550px;color:#e0f2ff;line-height:1.7;font-size:14px}
+.hero-buttons{margin-top:25px;display:flex;gap:10px;flex-wrap:wrap}
+.btn{min-height:43px;padding:0 18px;border-radius:12px;display:inline-flex;align-items:center;justify-content:center;gap:8px;font-weight:800;transition:.25s;position:relative;overflow:hidden}
+.btn:hover{transform:translateY(-2px)}
+.btn-primary{background:#fff;color:#075fc1;box-shadow:0 8px 22px rgba(255,255,255,.25)}
+.btn-blue{background:linear-gradient(135deg,#087cf2,#a855f7);color:#fff;box-shadow:0 8px 22px rgba(8,124,242,.3)}
+.btn-outline{background:transparent;border:1px solid var(--border);color:var(--text)}
+.btn-glass{background:rgba(255,255,255,.13);border:1px solid rgba(255,255,255,.22);color:#fff;backdrop-filter:blur(10px)}
+.btn::after{content:"";position:absolute;inset:0;background:linear-gradient(120deg,transparent 30%,rgba(255,255,255,.35),transparent 70%);transform:translateX(-100%);transition:.6s}
+.btn:hover::after{transform:translateX(100%)}
+.hero-art{position:relative;height:300px;display:grid;place-items:center}
+.hero-circle{width:280px;height:280px;border-radius:50%;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.22);box-shadow:inset 0 0 60px rgba(255,255,255,.08),0 0 80px rgba(255,255,255,.08);display:grid;place-items:center;animation:heroFloat 4s infinite ease-in-out;position:relative}
+.hero-circle::before{content:"";position:absolute;inset:-20px;border-radius:50%;border:1px dashed rgba(255,255,255,.2);animation:orbit 20s linear infinite}
+@keyframes heroFloat{50%{transform:translateY(-10px) rotate(2deg)}}
+.hero-product{width:180px;height:180px;border-radius:38px;background:linear-gradient(145deg,#fff,#dff7ff);display:grid;place-items:center;font-size:80px;box-shadow:0 25px 50px rgba(0,0,0,.18);animation:productSpin 6s ease-in-out infinite}
+@keyframes productSpin{0%,100%{transform:rotate(0) scale(1)}50%{transform:rotate(3deg) scale(1.05)}}
+.hero-float{position:absolute;padding:10px 13px;border-radius:13px;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.25);backdrop-filter:blur(10px);animation:floatCard 4s infinite ease-in-out;font-size:11px;font-weight:800;white-space:nowrap}
+.hero-float.a{top:20px;right:20px}
+.hero-float.b{bottom:25px;left:10px;animation-delay:1s}
+.hero-float.c{top:90px;left:0;animation-delay:1.5s}
+@keyframes floatCard{50%{transform:translateY(-8px)}}
+.hero-dots{position:absolute;bottom:18px;left:48px;display:flex;gap:6px;z-index:10}
+.hero-dot{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.4);cursor:pointer;transition:.2s}
+.hero-dot.active{width:22px;border-radius:20px;background:#fff}
+
+/* ============ SECTION ============ */
+.section{margin-top:30px}
+.section-head{display:flex;align-items:end;justify-content:space-between;gap:15px;margin-bottom:16px}
+.section-title{font-size:22px;font-weight:950;display:flex;align-items:center;gap:8px}
+.section-title::before{content:"";width:5px;height:22px;border-radius:3px;background:linear-gradient(180deg,#087cf2,#a855f7)}
+.section-subtitle{color:var(--muted);font-size:13px;margin-top:4px;margin-left:13px}
+.section-link{color:var(--primary);font-weight:800;font-size:13px;cursor:pointer}
+
+/* ============ CATEGORY ============ */
+.category-row{display:grid;grid-template-columns:repeat(6,1fr);gap:13px}
+.category-card{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:18px;display:flex;align-items:center;gap:13px;cursor:pointer;box-shadow:0 5px 18px rgba(16,24,40,.03);transition:.25s;position:relative;overflow:hidden}
+.category-card::before{content:"";position:absolute;inset:0;background:linear-gradient(135deg,rgba(8,124,242,.06),rgba(168,85,247,.06));opacity:0;transition:.3s}
+.category-card:hover::before,.category-card.active::before{opacity:1}
+.category-card:hover,.category-card.active{border-color:#9bdcff;transform:translateY(-3px);box-shadow:0 12px 30px rgba(8,124,242,.15)}
+.category-icon{width:50px;height:50px;flex-shrink:0;border-radius:15px;display:grid;place-items:center;font-size:23px;background:var(--blue-soft);transition:.3s;position:relative;z-index:1}
+.category-card.active .category-icon{background:linear-gradient(145deg,#22c8ff,#a855f7);color:#fff;transform:scale(1.05)}
+.category-name{font-weight:900;font-size:14px;position:relative;z-index:1}
+.category-desc{margin-top:3px;color:var(--muted);font-size:11px;position:relative;z-index:1}
+
+/* ============ FLASH SALE ============ */
+.flash-box{padding:20px;border-radius:23px;background:radial-gradient(circle at 100% 0,rgba(34,200,255,.2),transparent 30%),linear-gradient(110deg,#071a34,#083a71,#4c1d95);color:#fff;overflow:hidden;position:relative}
+.flash-box::before{content:"";position:absolute;inset:0;background-image:radial-gradient(circle at 20% 50%,rgba(255,255,255,.06) 0,transparent 40%);pointer-events:none}
+.flash-head{display:flex;align-items:center;justify-content:space-between;gap:15px;position:relative;z-index:1}
+.flash-title{font-size:22px;font-weight:1000;display:flex;align-items:center;gap:8px}
+.timer{display:flex;align-items:center;gap:5px}
+.time-box{min-width:35px;padding:6px 7px;text-align:center;border-radius:8px;background:rgba(255,255,255,.12);font-size:12px;font-weight:900;border:1px solid rgba(255,255,255,.1)}
+.flash-products{display:grid;grid-template-columns:repeat(4,1fr);gap:13px;margin-top:17px;position:relative;z-index:1}
+.flash-card{min-width:0;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.1);border-radius:15px;padding:13px;cursor:pointer;transition:.25s}
+.flash-card:hover{transform:translateY(-3px);background:rgba(255,255,255,.15);box-shadow:0 12px 30px rgba(0,0,0,.2)}
+.flash-image{height:110px;border-radius:12px;background:rgba(255,255,255,.1);display:grid;place-items:center;font-size:44px}
+.flash-name{margin-top:10px;font-size:12px;font-weight:800}
+.flash-price{margin-top:5px;font-size:15px;font-weight:1000;color:#70e3ff}
+
+/* ============ MARKET LAYOUT ============ */
+.market-layout{display:grid;grid-template-columns:220px 1fr;gap:20px}
+.filter-sidebar{align-self:start;position:sticky;top:90px;background:var(--card);border:1px solid var(--border);border-radius:18px;padding:18px}
+.filter-title{font-size:15px;font-weight:950;margin-bottom:15px}
+.filter-option{padding:10px 0;color:var(--muted);font-size:13px;cursor:pointer;transition:.2s}
+.filter-option:hover{color:var(--primary)}
+.filter-option.active{color:var(--primary);font-weight:900}
+.products-area{min-width:0}
+.product-toolbar{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:15px}
+.result-count{color:var(--muted);font-size:13px}
+.sort-select{border:1px solid var(--border);background:var(--card);color:var(--text);border-radius:10px;padding:9px 12px;outline:0}
+
+/* ============ PRODUCT CARD ============ */
+.product-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:15px}
+.product-card{position:relative;background:var(--card);border:1px solid var(--border);border-radius:18px;overflow:hidden;transition:.25s;cursor:pointer}
+.product-card:hover{transform:translateY(-5px);box-shadow:0 20px 45px rgba(16,24,40,.12)}
+.product-visual{height:180px;position:relative;display:grid;place-items:center;background:radial-gradient(circle at 50% 30%,#fff,transparent 50%),linear-gradient(145deg,#eaf8ff,#d9f0ff);overflow:hidden}
+.product-emoji{width:105px;height:105px;border-radius:28px;display:grid;place-items:center;font-size:51px;background:rgba(255,255,255,.7);box-shadow:0 15px 35px rgba(8,124,242,.12);position:relative;z-index:2}
+.product-badge{position:absolute;top:10px;left:10px;padding:5px 8px;border-radius:7px;background:#ef4444;color:#fff;font-size:9px;font-weight:900;z-index:3}
+.product-wish{position:absolute;top:8px;right:8px;width:35px;height:35px;border-radius:50%;display:grid;place-items:center;background:rgba(255,255,255,.85);color:#667085;font-size:17px;z-index:3;transition:.2s}
+.product-wish:hover{transform:scale(1.15)}
+.product-wish.active{color:#ef4444}
+.product-body{padding:14px}
+.product-category{color:var(--primary);font-size:10px;font-weight:900;text-transform:uppercase}
+.product-name{margin-top:5px;min-height:38px;font-size:14px;font-weight:900;line-height:1.35}
+.product-rating{margin-top:7px;color:#f59e0b;font-size:11px}
+.product-rating span{color:var(--muted);margin-left:3px}
+.product-price{margin-top:8px;font-size:17px;font-weight:1000}
+.old-price{margin-left:5px;color:#98a2b3;font-size:10px;text-decoration:line-through;font-weight:500}
+.product-sold{margin-top:4px;color:var(--muted);font-size:10px}
+.product-actions{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:12px}
+.product-actions button{height:36px;border-radius:10px;font-size:11px;font-weight:900;transition:.2s}
+.add-btn{color:var(--primary);background:var(--blue-soft)}
+.add-btn:hover{background:#d5ebff}
+.buy-btn{color:white;background:linear-gradient(135deg,#087cf2,#a855f7);background-size:200% 200%;transition:.3s}
+.buy-btn:hover{background-position:100% 0}
+
+/* ============ GLOW CARD (JASA) ============ */
+.product-card.glow-card{
+  border:1.5px solid transparent;
+  background:linear-gradient(var(--card),var(--card)) padding-box,
+    linear-gradient(135deg,#22c8ff,#087cf2,#a855f7,#ec4899,#22c8ff) border-box;
+  background-size:100% 100%, 300% 300%;
+  animation:borderFlow 5s linear infinite;
+  box-shadow:0 8px 28px rgba(8,124,242,.15);
+}
+@keyframes borderFlow{
+  0%{background-position:0% 50%,0% 50%}
+  100%{background-position:0% 50%,300% 50%}
+}
+.product-card.glow-card:hover{
+  transform:translateY(-7px) scale(1.015);
+  box-shadow:0 22px 50px rgba(8,124,242,.35),0 0 30px rgba(168,85,247,.25);
+}
+.product-card.glow-card .product-visual{
+  background:radial-gradient(circle at 50% 30%,#fff,transparent 55%),
+    linear-gradient(145deg,#e0f5ff,#c7e5ff 50%,#e8d5ff);
+}
+.product-card.glow-card .product-emoji{
+  background:rgba(255,255,255,.9);
+  box-shadow:0 15px 35px rgba(8,124,242,.25),0 0 0 3px rgba(255,255,255,.6);
+  animation:emojiFloat 3s ease-in-out infinite;
+}
+@keyframes emojiFloat{50%{transform:translateY(-5px) rotate(-3deg)}}
+.product-card.glow-card .product-badge{
+  background:linear-gradient(135deg,#ff6b35,#ef4444,#a855f7);
+  background-size:200% 200%;
+  animation:badgeShine 3s ease infinite;
+  box-shadow:0 4px 12px rgba(239,68,68,.4);
+}
+@keyframes badgeShine{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+.product-card.glow-card .product-price{
+  background:linear-gradient(135deg,#087cf2,#a855f7);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+}
+
+/* ============ PROMO BANNER ============ */
+.promo-banner{display:grid;grid-template-columns:1fr auto;align-items:center;gap:20px;padding:28px;border-radius:22px;background:radial-gradient(circle at 80% 0,rgba(255,255,255,.3),transparent 25%),linear-gradient(110deg,#087cf2,#18bce9,#a855f7);color:#fff;overflow:hidden;position:relative}
+.promo-banner::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 20% 80%,rgba(255,255,255,.15),transparent 40%);animation:promoPulse 4s infinite ease-in-out}
+@keyframes promoPulse{50%{opacity:.5}}
+.promo-banner h2{font-size:27px;font-weight:1000;position:relative;z-index:1}
+.promo-banner p{margin-top:7px;color:#e0f2ff;font-size:13px;position:relative;z-index:1}
+.promo-code{padding:15px 20px;border:2px dashed rgba(255,255,255,.65);border-radius:14px;background:rgba(255,255,255,.1);text-align:center;cursor:pointer;transition:.25s;position:relative;z-index:1}
+.promo-code:hover{transform:scale(1.05);background:rgba(255,255,255,.2)}
+.promo-code strong{display:block;font-size:20px;letter-spacing:2px}
+
+/* ============ FEATURE ============ */
+.feature-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.feature-card{padding:20px;background:var(--card);border:1px solid var(--border);border-radius:18px;transition:.25s;position:relative;overflow:hidden}
+.feature-card:hover{transform:translateY(-5px);box-shadow:0 15px 35px rgba(8,124,242,.15);border-color:#9bdcff}
+.feature-card::before{content:"";position:absolute;top:-50%;right:-50%;width:100%;height:100%;background:radial-gradient(circle,rgba(8,124,242,.1),transparent 70%);opacity:0;transition:.4s}
+.feature-card:hover::before{opacity:1}
+.feature-icon{font-size:28px;position:relative;z-index:1}
+.feature-card h3{margin-top:11px;font-size:14px;position:relative;z-index:1}
+.feature-card p{margin-top:5px;color:var(--muted);font-size:11px;line-height:1.6;position:relative;z-index:1}
+
+/* ============ REVIEWS ============ */
+.review-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.review-card{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:19px;transition:.25s}
+.review-card:hover{transform:translateY(-4px);box-shadow:0 15px 35px rgba(16,24,40,.1)}
+.review-top{display:flex;align-items:center;gap:10px}
+.avatar{width:39px;height:39px;border-radius:50%;display:grid;place-items:center;color:white;font-weight:900;background:linear-gradient(145deg,#2bd6ff,#087cf2)}
+.review-name{font-size:13px;font-weight:900}
+.review-stars{color:#f59e0b;font-size:11px}
+.review-text{margin-top:13px;color:var(--muted);font-size:12px;line-height:1.7}
+
+/* ============ FAQ ============ */
+.faq-list{display:grid;gap:9px}
+.faq-item{background:var(--card);border:1px solid var(--border);border-radius:14px;overflow:hidden;transition:.2s}
+.faq-item.open{border-color:#9bdcff;box-shadow:0 8px 25px rgba(8,124,242,.1)}
+.faq-question{padding:16px;display:flex;justify-content:space-between;font-weight:850;cursor:pointer;user-select:none}
+.faq-answer{max-height:0;overflow:hidden;padding:0 16px;color:var(--muted);font-size:12px;line-height:1.7;transition:.3s}
+.faq-item.open .faq-answer{max-height:200px;padding-bottom:16px}
+
+/* ============ FOOTER ============ */
+footer{margin-top:45px;background:linear-gradient(180deg,#071525,#050a14);color:#fff;position:relative;z-index:1}
+.footer-inner{max-width:1400px;margin:auto;padding:42px 22px;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:30px}
+.footer-brand{font-size:22px;font-weight:1000}
+.footer-brand span{background:linear-gradient(135deg,#3bd8ff,#a855f7);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.footer-text{margin-top:10px;color:#9fb1c0;max-width:430px;line-height:1.7;font-size:12px}
+.footer-title{font-weight:900;margin-bottom:12px}
+.footer-link{display:block;color:#9fb1c0;font-size:12px;margin:8px 0;cursor:pointer;transition:.2s}
+.footer-link:hover{color:#3bd8ff;transform:translateX(4px)}
+.footer-bottom{border-top:1px solid rgba(255,255,255,.08);padding:17px 22px;text-align:center;color:#718697;font-size:11px}
+
+/* ============ CART DRAWER ============ */
+.overlay{position:fixed;inset:0;z-index:8000;background:rgba(2,10,20,.55);backdrop-filter:blur(4px);opacity:0;visibility:hidden;transition:.25s}
+.overlay.show{opacity:1;visibility:visible}
+.drawer{position:fixed;top:0;right:0;bottom:0;z-index:8100;width:min(440px,94vw);background:var(--card);transform:translateX(105%);transition:.35s cubic-bezier(.2,.8,.2,1);display:flex;flex-direction:column}
+.drawer.show{transform:translateX(0)}
+.drawer-head{min-height:65px;display:flex;align-items:center;justify-content:space-between;padding:0 18px;border-bottom:1px solid var(--border)}
+.drawer-title{font-size:17px;font-weight:950}
+.drawer-body{flex:1;overflow:auto;padding:15px}
+.cart-empty{min-height:300px;display:grid;place-items:center;text-align:center;color:var(--muted)}
+.cart-item{display:grid;grid-template-columns:55px 1fr auto;gap:11px;padding:12px 0;border-bottom:1px solid var(--border)}
+.cart-icon{width:55px;height:55px;border-radius:14px;display:grid;place-items:center;background:var(--blue-soft);font-size:25px}
+.cart-name{font-size:12px;font-weight:900}
+.cart-price{margin-top:4px;color:var(--primary);font-size:12px;font-weight:900}
+.remove-cart{color:#ef4444;background:transparent;font-size:12px}
+.drawer-bottom{padding:16px;border-top:1px solid var(--border)}
+.summary-row{display:flex;justify-content:space-between;margin:8px 0;color:var(--muted);font-size:12px}
+.summary-row.total{color:var(--text);font-size:16px;font-weight:1000}
+.voucher-row{display:flex;gap:7px;margin:12px 0}
+.voucher-row input{min-width:0;flex:1;border:1px solid var(--border);border-radius:10px;padding:10px;outline:0;text-transform:uppercase}
+.voucher-row button{padding:0 13px;border-radius:10px;background:var(--text);color:#fff;font-weight:800}
+
+/* ============ MODAL ============ */
+.modal-wrap{position:fixed;inset:0;z-index:9000;background:rgba(2,10,20,.6);backdrop-filter:blur(5px);display:flex;align-items:center;justify-content:center;padding:18px;opacity:0;visibility:hidden;transition:.25s}
+.modal-wrap.show{opacity:1;visibility:visible}
+.modal{width:min(760px,100%);max-height:90vh;overflow:auto;background:var(--card);border-radius:22px;box-shadow:0 30px 80px rgba(0,0,0,.25);transform:translateY(20px) scale(.97);transition:.3s}
+.modal-wrap.show .modal{transform:translateY(0) scale(1)}
+.modal-head{min-height:62px;padding:0 18px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--border)}
+.modal-title{font-weight:950}
+.modal-body{padding:20px}
+.close-btn{width:38px;height:38px;border-radius:11px;background:var(--bg);color:var(--text);transition:.2s}
+.close-btn:hover{background:#ef4444;color:#fff;transform:rotate(90deg)}
+.product-detail{display:grid;grid-template-columns:280px 1fr;gap:25px}
+.detail-image{min-height:280px;border-radius:20px;display:grid;place-items:center;background:linear-gradient(145deg,#eaf8ff,#d5efff,#e8d5ff);font-size:90px}
+.detail-category{color:var(--primary);font-size:11px;font-weight:900;text-transform:uppercase}
+.detail-name{margin-top:6px;font-size:25px;font-weight:1000}
+.detail-price{margin-top:13px;color:var(--primary);font-size:25px;font-weight:1000}
+.detail-desc{margin-top:13px;color:var(--muted);font-size:13px;line-height:1.8}
+.detail-buttons{display:flex;gap:8px;flex-wrap:wrap;margin-top:18px}
+
+/* ============ FORM ============ */
+.form-grid{display:grid;gap:13px}
+.form-label{display:block;margin-bottom:6px;font-size:12px;font-weight:850}
+.form-input{width:100%;min-height:44px;padding:0 13px;border:1px solid var(--border);border-radius:11px;outline:0;background:var(--bg);color:var(--text);transition:.2s}
+.form-input:focus{border-color:var(--primary);background:var(--card);box-shadow:0 0 0 4px rgba(8,124,242,.08)}
+textarea.form-input{padding:12px;min-height:90px}
+
+/* ============ NOKOS PAGE ============ */
+.nokos-hero{background:radial-gradient(circle at 85% 20%,rgba(83,221,255,.4),transparent 40%),linear-gradient(120deg,#061b38,#087cf2,#a855f7);color:#fff;padding:26px 20px;border-radius:16px;text-align:center;margin-bottom:16px;position:relative;overflow:hidden}
+.nokos-hero::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 20% 80%,rgba(255,255,255,.15),transparent 40%)}
+.nokos-hero-emoji{font-size:56px;margin-bottom:10px;position:relative;z-index:1;animation:emojiFloat 3s ease-in-out infinite}
+.nokos-hero h2{font-size:22px;font-weight:900;margin-bottom:6px;position:relative;z-index:1}
+.nokos-hero p{font-size:12px;color:#d8efff;line-height:1.6;max-width:340px;margin:0 auto;position:relative;z-index:1}
+.nokos-stats{display:flex;justify-content:center;gap:22px;margin-top:16px;position:relative;z-index:1}
+.nokos-stat strong{display:block;font-size:14px;font-weight:900;color:#5bdcff;margin-bottom:2px}
+.nokos-stat span{font-size:10px;color:#9bc7e3}
+.nokos-section-title{font-size:14px;font-weight:900;margin:18px 0 10px;display:flex;align-items:center;gap:8px}
+.nokos-section-title::before{content:"";width:4px;height:16px;background:linear-gradient(180deg,#087cf2,#a855f7);border-radius:4px}
+.nokos-pkg-list{display:grid;gap:10px}
+.nokos-pkg{background:var(--card);border:1.5px solid var(--border);border-radius:14px;padding:14px;display:flex;align-items:center;gap:12px;cursor:pointer;transition:.25s;position:relative}
+.nokos-pkg:hover{border-color:var(--primary);transform:translateY(-2px);box-shadow:0 10px 25px rgba(8,124,242,.12)}
+.nokos-pkg.selected{border-color:var(--primary);background:linear-gradient(145deg,#fff,#eaf6ff);box-shadow:0 0 0 3px rgba(8,124,242,.12)}
+.nokos-pkg-icon{width:48px;height:48px;border-radius:14px;background:var(--blue-soft);display:grid;place-items:center;font-size:22px;flex-shrink:0}
+.nokos-pkg.selected .nokos-pkg-icon{background:linear-gradient(145deg,#22c8ff,#087cf2);color:#fff}
+.nokos-pkg-info{flex:1;min-width:0}
+.nokos-pkg-name{font-size:13px;font-weight:900;margin-bottom:3px}
+.nokos-pkg-desc{font-size:10px;color:var(--muted);margin-bottom:5px}
+.nokos-pkg-price{font-size:14px;font-weight:900;color:var(--primary)}
+.nokos-pkg-price small{font-size:9px;color:var(--muted);text-decoration:line-through;margin-left:5px;font-weight:500}
+.nokos-pkg-check{width:22px;height:22px;border-radius:50%;border:2px solid #cbd5e1;display:grid;place-items:center;font-size:12px;color:#fff;flex-shrink:0}
+.nokos-pkg.selected .nokos-pkg-check{background:var(--primary);border-color:var(--primary)}
+.nokos-pkg-badge{position:absolute;top:8px;right:12px;padding:3px 7px;border-radius:6px;background:linear-gradient(135deg,#ff6b35,#ef4444);color:#fff;font-size:9px;font-weight:900}
+.nokos-detail{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:16px;font-size:12px;line-height:2}
+.nokos-detail.empty{text-align:center;color:var(--muted);padding:30px 16px}
+.nokos-info-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:8px}
+.nokos-info-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px;text-align:center}
+.nokos-info-icon{font-size:22px;margin-bottom:6px}
+.nokos-info-title{font-size:11px;font-weight:800;margin-bottom:3px}
+.nokos-info-desc{font-size:10px;color:var(--muted);line-height:1.4}
+.nokos-bottom{display:flex;align-items:center;gap:12px;padding:14px;border-radius:14px;background:var(--blue-soft);margin-top:16px}
+.nokos-bottom-info{flex:1}
+.nokos-bottom-info small{font-size:10px;color:var(--muted);display:block}
+.nokos-bottom-info strong{font-size:17px;color:var(--primary);font-weight:900}
+
+/* ============ BOT ============ */
+.bot-button{position:fixed;right:20px;bottom:82px;z-index:6000;width:54px;height:54px;border-radius:50%;display:grid;place-items:center;color:#fff;font-size:23px;background:linear-gradient(145deg,#2bd6ff,#087cf2);box-shadow:0 14px 30px rgba(8,124,242,.3);animation:botPulse 2.4s infinite}
+@keyframes botPulse{50%{box-shadow:0 14px 45px rgba(8,124,242,.48)}}
+.bot-window{position:fixed;right:20px;bottom:145px;z-index:6100;width:min(370px,calc(100vw - 30px));height:510px;background:var(--card);border:1px solid var(--border);border-radius:20px;box-shadow:0 25px 70px rgba(0,0,0,.18);overflow:hidden;display:none;flex-direction:column}
+.bot-window.show{display:flex;animation:slideUp .3s ease}
+@keyframes slideUp{from{transform:translateY(20px);opacity:0}to{transform:translateY(0);opacity:1}}
+.bot-head{min-height:60px;padding:0 15px;display:flex;align-items:center;gap:10px;color:#fff;background:linear-gradient(110deg,#087cf2,#a855f7)}
+.bot-avatar{width:37px;height:37px;border-radius:50%;display:grid;place-items:center;background:rgba(255,255,255,.18)}
+.bot-name{font-weight:900}
+.bot-online{font-size:10px;color:#d8faff}
+.bot-messages{flex:1;padding:13px;overflow:auto;background:var(--bg)}
+.message{max-width:84%;padding:10px 12px;border-radius:13px;margin-bottom:9px;font-size:12px;line-height:1.5}
+.message.bot{background:var(--card);border:1px solid var(--border)}
+.message.user{margin-left:auto;background:var(--primary);color:#fff}
+.bot-actions{padding:9px;display:flex;gap:5px;flex-wrap:wrap;border-top:1px solid var(--border)}
+.bot-actions button{padding:7px 9px;border-radius:9px;background:var(--blue-soft);color:var(--primary);font-size:10px;font-weight:850}
+.bot-input{padding:9px;display:flex;gap:6px;border-top:1px solid var(--border)}
+.bot-input input{min-width:0;flex:1;border:1px solid var(--border);border-radius:10px;padding:9px;outline:0}
+.bot-input button{width:40px;border-radius:10px;background:linear-gradient(135deg,#087cf2,#a855f7);color:#fff}
+
+/* ============ WA & MUSIC ============ */
+.wa-button{position:fixed;right:20px;bottom:20px;z-index:5900;width:52px;height:52px;border-radius:50%;display:grid;place-items:center;background:#25d366;color:#fff;font-size:24px;box-shadow:0 12px 30px rgba(37,211,102,.4);animation:waPulse 2s infinite}
+@keyframes waPulse{50%{box-shadow:0 12px 45px rgba(37,211,102,.7)}}
+.music-button{position:fixed;left:20px;bottom:20px;z-index:5900;width:48px;height:48px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(145deg,#101828,#1f2937);color:#fff;box-shadow:0 10px 25px rgba(0,0,0,.18)}
+.back-top{position:fixed;right:20px;bottom:145px;z-index:5800;width:43px;height:43px;border-radius:50%;background:var(--card);border:1px solid var(--border);box-shadow:var(--shadow);display:none}
+.back-top.show{display:block;animation:slideUp .3s}
+
+/* ============ MOBILE NAV ============ */
+.mobile-nav{display:none}
+
+/* ============ TOAST ============ */
+#toast{position:fixed;left:50%;bottom:25px;z-index:99999;transform:translate(-50%,30px);opacity:0;visibility:hidden;max-width:calc(100% - 30px);padding:11px 15px;border-radius:12px;background:linear-gradient(135deg,#101828,#1f2937);color:#fff;font-size:12px;box-shadow:0 15px 40px rgba(0,0,0,.3);transition:.25s}
+#toast.show{opacity:1;visibility:visible;transform:translate(-50%,0)}
+
+/* ============ CONFETTI ============ */
+.confetti{position:fixed;top:-10px;width:10px;height:14px;z-index:99998;pointer-events:none;animation:confettiFall linear forwards}
+@keyframes confettiFall{
+  to{transform:translateY(110vh) rotate(720deg);opacity:0}
+}
+
+/* ============ CURSOR SPARKLE (Desktop) ============ */
+.sparkle{position:fixed;width:8px;height:8px;border-radius:50%;background:radial-gradient(circle,#22c8ff,transparent);pointer-events:none;z-index:99997;animation:sparkleFade .8s ease forwards}
+@keyframes sparkleFade{to{transform:scale(0) translateY(-20px);opacity:0}}
+
+/* ============ DARK MODE ============ */
+body.dark{--bg:#07111f;--card:#0d1a2a;--text:#f1f7fb;--muted:#91a5b6;--border:#1d3043;--blue-soft:#102d48;--shadow:0 15px 45px rgba(0,0,0,.22)}
+body.dark .top-header{background:rgba(7,17,31,.92)}
+body.dark .search-box{background:#0b1726}
+body.dark .product-visual,body.dark .detail-image{background:linear-gradient(145deg,#10283e,#0c2034)}
+body.dark .sort-select,body.dark .form-input{background:#0b1726;color:var(--text)}
+body.dark .product-card.glow-card .product-visual{background:linear-gradient(145deg,#10283e,#1a0f33)}
+body.dark .nokos-pkg.selected{background:linear-gradient(145deg,#102d48,#1a0f33)}
+
+/* ============ REVEAL ANIMATION ============ */
+.reveal{animation:reveal .6s ease both}
+@keyframes reveal{from{opacity:0;transform:translateY(15px)}to{opacity:1;transform:translateY(0)}}
+
+/* ============ RESPONSIVE ============ */
+@media(max-width:1200px){
+  .category-row{grid-template-columns:repeat(3,1fr)}
+}
+@media(max-width:1100px){
+  .product-grid{grid-template-columns:repeat(3,1fr)}
+  .flash-products{grid-template-columns:repeat(2,1fr)}
+  .category-row{grid-template-columns:repeat(2,1fr)}
+  .feature-grid{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:850px){
+  main{padding:15px;padding-bottom:85px}
+  .header-main{padding:8px 14px;gap:9px}
+  .logo-text{display:none}
+  .header-actions .hide-mobile{display:none}
+  .hero{min-height:520px}
+  .hero-slide{grid-template-columns:1fr;padding:30px 25px 60px}
+  .hero-art{position:absolute;right:-60px;bottom:-40px;opacity:.4;transform:scale(.7)}
+  .hero-dots{left:25px}
+  .market-layout{grid-template-columns:1fr}
+  .filter-sidebar{position:static;display:flex;gap:10px;overflow:auto;padding:10px}
+  .filter-title{display:none}
+  .filter-option{flex-shrink:0;padding:8px 12px;border-radius:9px;background:var(--bg)}
+  .product-grid{grid-template-columns:repeat(2,1fr)}
+  .product-visual{height:150px}
+  .footer-inner{grid-template-columns:1fr 1fr}
+  .review-grid{grid-template-columns:1fr}
+  .product-detail{grid-template-columns:1fr}
+  .detail-image{min-height:220px}
+}
+@media(max-width:600px){
+  .header-main{flex-wrap:wrap}
+  .search-wrap{order:5;flex-basis:100%}
+  .hero{border-radius:20px;min-height:530px}
+  .hero h1{font-size:35px}
+  .hero p{font-size:12px}
+  .hero-circle{width:200px;height:200px}
+  .hero-product{width:130px;height:130px;font-size:57px}
+  .category-row{display:flex;overflow:auto;scrollbar-width:none}
+  .category-row::-webkit-scrollbar{display:none}
+  .category-card{min-width:170px}
+  .flash-products{display:flex;overflow:auto;scrollbar-width:none}
+  .flash-products::-webkit-scrollbar{display:none}
+  .flash-card{min-width:155px}
+  .product-grid{gap:9px}
+  .product-visual{height:135px}
+  .product-emoji{width:78px;height:78px;font-size:38px}
+  .product-body{padding:10px}
+  .product-name{font-size:12px}
+  .product-price{font-size:15px}
+  .product-actions button{font-size:9px}
+  .feature-grid{grid-template-columns:1fr 1fr;gap:9px}
+  .feature-card{padding:13px}
+  .promo-banner{grid-template-columns:1fr}
+  .footer-inner{grid-template-columns:1fr}
+  .bot-button{right:15px;bottom:145px}
+  .bot-window{right:15px;bottom:205px;height:470px}
+  .wa-button{right:15px;bottom:78px}
+  .music-button{left:15px;bottom:78px}
+  .back-top{right:15px;bottom:145px}
+  .mobile-nav{position:fixed;left:0;right:0;bottom:0;z-index:5500;height:67px;display:grid;grid-template-columns:repeat(5,1fr);background:rgba(255,255,255,.94);backdrop-filter:blur(18px);border-top:1px solid var(--border)}
+  body.dark .mobile-nav{background:rgba(13,26,42,.94)}
+  .mobile-nav button{position:relative;background:transparent;color:var(--muted);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;font-size:10px;font-weight:800;transition:.2s}
+  .mobile-nav button.active{color:var(--primary);transform:translateY(-2px)}
+  .mobile-nav .nav-icon{font-size:19px;line-height:20px}
+  .mobile-nav .count{position:absolute;top:8px;margin-left:24px;min-width:15px;height:15px;border-radius:50%;background:#ef4444;color:white;font-size:8px;display:grid;place-items:center}
+  .nokos-info-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+
+<body>
+
+<!-- PARTICLES BG -->
+<div id="particles"></div>
+
+<!-- LOADER -->
+<div id="loader">
+  <div class="loader-grid"></div>
+  <div class="loader-glow"></div>
+  <div class="loader-float loader-f1">🛍️</div>
+  <div class="loader-float loader-f2">✨</div>
+  <div class="loader-float loader-f3">🎁</div>
+  <div class="loader-float loader-f4">⚡</div>
+  <div class="loader-content">
+    <div class="loader-orbit"></div>
+    <div class="loader-logo-wrap">
+      <div class="loader-logo-ring"></div>
+      <div class="loader-logo">P</div>
+    </div>
+    <div class="loader-title">PANN<span>.</span></div>
+    <div class="loader-subtitle">Premium Digital Marketplace</div>
+    <div class="loader-status" id="loaderStatus">Menyiapkan PANN STORE...</div>
+    <div class="loader-progress"><div class="loader-bar" id="loaderBar"></div></div>
+    <div class="loader-info">
+      <span id="loaderInfo">Mempersiapkan toko</span>
+      <span class="loader-percent"><span id="loaderPercent">0</span>%</span>
+    </div>
+  </div>
+</div>
+
+<!-- HEADER -->
+<header class="top-header">
+  <div class="header-main">
+    <div class="logo" onclick="goHome()">
+      <div class="logo-box">P</div>
+      <div class="logo-text">PANN<span>STORE</span></div>
+    </div>
+    <div class="search-wrap">
+      <div class="search-box">
+        <span>⌕</span>
+        <input id="searchInput" type="text" placeholder="Cari produk di PANN STORE..." autocomplete="off">
+      </div>
+      <div class="search-suggestions" id="searchSuggestions"></div>
+    </div>
+    <div class="header-actions">
+      <button class="icon-btn" onclick="openNotifications()" title="Notifikasi">🔔<span class="count" id="notifCount">0</span></button>
+      <button class="icon-btn hide-mobile" onclick="toggleBot()" title="PANN Bot">💬</button>
+      <button class="icon-btn hide-mobile" onclick="showWishlist()" title="Wishlist">♡<span class="count" id="wishCount">0</span></button>
+      <button class="icon-btn" onclick="openCart()" title="Keranjang">🛒<span class="count" id="cartCount">0</span></button>
+      <button class="profile-mini" onclick="openProfile()" title="Akun"><span id="profileInitial">P</span></button>
+    </div>
+  </div>
+  <div class="marquee">
+    <div class="marquee-track">
+      <span>🔥 PROMO PANN STORE</span><span>⚡ FLASH SALE SETIAP HARI</span><span>🎁 VOUCHER PANN10 &amp; PANN20</span><span>💎 PRODUK DIGITAL TERPERCAYA</span><span>🚀 PROSES CEPAT &amp; AMAN</span><span>🔥 PROMO PANN STORE</span><span>⚡ FLASH SALE SETIAP HARI</span><span>🎁 VOUCHER PANN10 &amp; PANN20</span><span>💎 PRODUK DIGITAL TERPERCAYA</span><span>🚀 PROSES CEPAT &amp; AMAN</span>
+    </div>
+  </div>
+</header>
+
+<!-- MAIN -->
+<main id="home">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-slide active">
+      <div class="hero-content">
+        <span class="hero-badge">🔥 PROMO PANN STORE</span>
+        <h1>Belanja digital <span class="gradient">lebih simpel.</span></h1>
+        <p>Temukan produk digital PANN STORE dengan tampilan marketplace yang cepat, nyaman, dan mudah digunakan.</p>
+        <div class="hero-buttons">
+          <button class="btn btn-primary" onclick="scrollProducts()">🛍️ Belanja Sekarang</button>
+          <button class="btn btn-glass" onclick="showPromo()">🎁 Lihat Promo</button>
+        </div>
+      </div>
+      <div class="hero-art">
+        <div class="hero-circle">
+          <div class="hero-product">🛍️</div>
+          <div class="hero-float a">⚡ Cepat</div>
+          <div class="hero-float b">🔒 Aman</div>
+          <div class="hero-float c">💙 PANN</div>
+        </div>
+      </div>
+    </div>
+    <div class="hero-slide">
+      <div class="hero-content">
+        <span class="hero-badge">⚡ FLASH SALE</span>
+        <h1>Promo pilihan <span class="gradient">setiap hari.</span></h1>
+        <p>Jangan lewatkan penawaran dan voucher yang tersedia di PANN STORE.</p>
+        <div class="hero-buttons">
+          <button class="btn btn-primary" onclick="scrollToFlash()">⚡ Flash Sale</button>
+          <button class="btn btn-glass" onclick="copyVoucher('PANN10')">🎟️ PANN10</button>
+        </div>
+      </div>
+      <div class="hero-art">
+        <div class="hero-circle">
+          <div class="hero-product">🎁</div>
+          <div class="hero-float a">🔥 PROMO</div>
+          <div class="hero-float b">💸 Hemat</div>
+        </div>
+      </div>
+    </div>
+    <div class="hero-slide">
+      <div class="hero-content">
+        <span class="hero-badge">💙 PANN STORE</span>
+        <h1>Pesan mudah, <span class="gradient">langsung terhubung.</span></h1>
+        <p>Pilih produk, masukkan ke keranjang, checkout, lalu kirim detail pesanan langsung ke WhatsApp admin.</p>
+        <div class="hero-buttons">
+          <button class="btn btn-primary" onclick="openCart()">🛒 Buka Keranjang</button>
+          <button class="btn btn-glass" onclick="contactAdmin()">👨‍💻 Admin</button>
+        </div>
+      </div>
+      <div class="hero-art">
+        <div class="hero-circle">
+          <div class="hero-product">📦</div>
+          <div class="hero-float a">📲 WhatsApp</div>
+          <div class="hero-float b">🧾 Order</div>
+        </div>
+      </div>
+    </div>
+    <div class="hero-dots">
+      <span class="hero-dot active" onclick="heroGo(0)"></span>
+      <span class="hero-dot" onclick="heroGo(1)"></span>
+      <span class="hero-dot" onclick="heroGo(2)"></span>
+    </div>
+  </section>
+
+  <!-- KATEGORI -->
+  <section class="section">
+    <div class="section-head">
+      <div>
+        <div class="section-title">Kategori</div>
+        <div class="section-subtitle">Temukan produk sesuai kebutuhanmu</div>
+      </div>
+      <div class="section-link" onclick="filterCategory('all')">Lihat semua →</div>
+    </div>
+    <div class="category-row">
+      <div class="category-card active" data-category="all" onclick="filterCategory('all')">
+        <div class="category-icon">🛍️</div>
+        <div><div class="category-name">Semua</div><div class="category-desc">Semua produk</div></div>
+      </div>
+      <div class="category-card" data-category="NOKOS" onclick="filterCategory('NOKOS')">
+        <div class="category-icon">📱</div>
+        <div><div class="category-name">NOKOS</div><div class="category-desc">Produk NOKOS</div></div>
+      </div>
+      <div class="category-card" data-category="VERIF" onclick="filterCategory('VERIF')">
+        <div class="category-icon">🔵</div>
+        <div><div class="category-name">VERIF</div><div class="category-desc">Verifikasi</div></div>
+      </div>
+      <div class="category-card" data-category="JASA" onclick="filterCategory('JASA')">
+        <div class="category-icon">🎬</div>
+        <div><div class="category-name">JASA</div><div class="category-desc">Jasa edit &amp; digital</div></div>
+      </div>
+      <div class="category-card" data-category="BUNDLE" onclick="filterCategory('BUNDLE')">
+        <div class="category-icon">🎁</div>
+        <div><div class="category-name">BUNDLE</div><div class="category-desc">Paket hemat</div></div>
+      </div>
+      <div class="category-card" data-category="PROMO" onclick="filterCategory('PROMO')">
+        <div class="category-icon">🔥</div>
+        <div><div class="category-name">Promo</div><div class="category-desc">Penawaran pilihan</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FLASH SALE -->
+  <section class="section" id="flashSale">
+    <div class="flash-box">
+      <div class="flash-head">
+        <div>
+          <div class="flash-title">⚡ Flash Sale</div>
+          <div style="font-size:11px;color:#9cc7df;margin-top:3px">Jangan sampai kelewatan</div>
+        </div>
+        <div class="timer">
+          <div class="time-box" id="saleHours">00</div>:
+          <div class="time-box" id="saleMinutes">00</div>:
+          <div class="time-box" id="saleSeconds">00</div>
+        </div>
+      </div>
+      <div class="flash-products" id="flashProducts"></div>
+    </div>
+  </section>
+
+  <!-- VOUCHER -->
+  <section class="section">
+    <div class="promo-banner">
+      <div>
+        <h2>🎁 Voucher PANN STORE</h2>
+        <p>Gunakan voucher saat checkout untuk mendapatkan diskon.</p>
+      </div>
+      <div class="promo-code" onclick="copyVoucher('PANN10')">
+        <small>KLIK UNTUK SALIN</small>
+        <strong>PANN10</strong>
+        <small>DISKON 10%</small>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRODUK -->
+  <section class="section" id="productsSection">
+    <div class="section-head">
+      <div>
+        <div class="section-title">🛍️ Produk</div>
+        <div class="section-subtitle">Pilih produk yang kamu butuhkan</div>
+      </div>
+    </div>
+    <div class="market-layout">
+      <aside class="filter-sidebar">
+        <div class="filter-title">Filter Produk</div>
+        <div class="filter-option active" data-filter="all" onclick="filterCategory('all')">Semua Produk</div>
+        <div class="filter-option" data-filter="NOKOS" onclick="filterCategory('NOKOS')">📱 NOKOS</div>
+        <div class="filter-option" data-filter="VERIF" onclick="filterCategory('VERIF')">🔵 VERIF</div>
+        <div class="filter-option" data-filter="JASA" onclick="filterCategory('JASA')">🎬 Jasa</div>
+        <div class="filter-option" data-filter="BUNDLE" onclick="filterCategory('BUNDLE')">🎁 Bundle</div>
+        <div class="filter-option" data-filter="PROMO" onclick="filterCategory('PROMO')">🔥 Promo</div>
+      </aside>
+      <div class="products-area">
+        <div class="product-toolbar">
+          <div class="result-count" id="resultCount">0 produk</div>
+          <select class="sort-select" id="sortSelect" onchange="renderProducts()">
+            <option value="default">Urutan default</option>
+            <option value="low">Harga terendah</option>
+            <option value="high">Harga tertinggi</option>
+            <option value="rating">Rating tertinggi</option>
+            <option value="sold">Terlaris</option>
+          </select>
+        </div>
+        <div class="product-grid" id="productGrid"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FITUR -->
+  <section class="section">
+    <div class="section-head"><div><div class="section-title">✨ Kenapa PANN STORE?</div></div></div>
+    <div class="feature-grid">
+      <div class="feature-card"><div class="feature-icon">⚡</div><h3>Proses Mudah</h3><p>Pilih produk dan checkout dengan alur yang sederhana.</p></div>
+      <div class="feature-card"><div class="feature-icon">🔒</div><h3>Informasi Jelas</h3><p>Harga dan detail produk ditampilkan sebelum order.</p></div>
+      <div class="feature-card"><div class="feature-icon">📲</div><h3>WhatsApp Order</h3><p>Detail pesanan bisa langsung dikirim ke admin.</p></div>
+      <div class="feature-card"><div class="feature-icon">💙</div><h3>Marketplace Modern</h3><p>Tampilan nyaman di HP, tablet maupun PC.</p></div>
+    </div>
+  </section>
+
+  <!-- RECENT -->
+  <section class="section" id="recentSection">
+    <div class="section-head">
+      <div>
+        <div class="section-title">👀 Terakhir Dilihat</div>
+        <div class="section-subtitle">Produk yang baru kamu buka</div>
+      </div>
+    </div>
+    <div class="product-grid" id="recentProducts"></div>
+  </section>
+
+  <!-- REVIEWS -->
+  <section class="section">
+    <div class="section-head"><div><div class="section-title">⭐ Review Pelanggan</div></div></div>
+    <div class="review-grid">
+      <div class="review-card">
+        <div class="review-top"><div class="avatar">A</div><div><div class="review-name">Customer</div><div class="review-stars">★★★★★</div></div></div>
+        <div class="review-text">Tampilan tokonya enak dipakai dan proses ordernya jelas.</div>
+      </div>
+      <div class="review-card">
+        <div class="review-top"><div class="avatar">R</div><div><div class="review-name">Customer</div><div class="review-stars">★★★★★</div></div></div>
+        <div class="review-text">Produk gampang dicari dan keranjangnya praktis.</div>
+      </div>
+      <div class="review-card">
+        <div class="review-top"><div class="avatar">D</div><div><div class="review-name">Customer</div><div class="review-stars">★★★★★</div></div></div>
+        <div class="review-text">Checkout langsung tersusun dan bisa dikirim ke WhatsApp.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section" id="faq">
+    <div class="section-head"><div><div class="section-title">❓ Pertanyaan Umum</div></div></div>
+    <div class="faq-list">
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">Bagaimana cara order? <span>＋</span></div>
+        <div class="faq-answer">Pilih produk, masukkan ke keranjang, buka checkout, isi data lalu kirim pesanan melalui WhatsApp.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">Berapa maksimal barang di keranjang? <span>＋</span></div>
+        <div class="faq-answer">Keranjang dibatasi maksimal 3 jenis barang sesuai pengaturan PANN STORE.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">Apakah nomor pesanan otomatis? <span>＋</span></div>
+        <div class="faq-answer">Ya. Setiap checkout membuat nomor pesanan unik dan menyimpannya di riwayat pesanan.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">Bagaimana menghubungi admin? <span>＋</span></div>
+        <div class="faq-answer">Gunakan tombol WhatsApp atau tombol Hubungi Admin.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="section">
+    <div class="promo-banner">
+      <div>
+        <h2>🚀 Siap belanja?</h2>
+        <p>Pilih produk favoritmu dan mulai order sekarang.</p>
+      </div>
+      <button class="btn btn-primary" onclick="scrollProducts()">🛍️ Mulai Belanja</button>
+    </div>
+  </section>
+
+</main>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div>
+      <div class="footer-brand">PANN<span>STORE</span></div>
+      <div class="footer-text">Marketplace digital PANN STORE dengan tampilan modern dan alur pemesanan yang sederhana.</div>
+    </div>
+    <div>
+      <div class="footer-title">Marketplace</div>
+      <div class="footer-link" onclick="scrollProducts()">Produk</div>
+      <div class="footer-link" onclick="showWishlist()">Wishlist</div>
+      <div class="footer-link" onclick="openCart()">Keranjang</div>
+    </div>
+    <div>
+      <div class="footer-title">Bantuan</div>
+      <div class="footer-link" onclick="toggleBot()">PANN Bot</div>
+      <div class="footer-link" onclick="contactAdmin()">Hubungi Admin</div>
+      <div class="footer-link" onclick="scrollToFaq()">FAQ</div>
+    </div>
+    <div>
+      <div class="footer-title">Akun</div>
+      <div class="footer-link" onclick="openProfile()">Profil</div>
+      <div class="footer-link" onclick="openOrders()">Pesanan</div>
+      <div class="footer-link" onclick="toggleDark()">Mode Gelap</div>
+    </div>
+  </div>
+  <div class="footer-bottom">© 2026 PANN STORE • All Rights Reserved</div>
+</footer>
+
+<!-- CART DRAWER -->
+<div class="overlay" id="cartOverlay" onclick="closeCart()"></div>
+<aside class="drawer" id="cartDrawer">
+  <div class="drawer-head">
+    <div class="drawer-title">🛒 Keranjang</div>
+    <button class="close-btn" onclick="closeCart()">✕</button>
+  </div>
+  <div class="drawer-body" id="cartBody"></div>
+  <div class="drawer-bottom">
+    <div class="voucher-row">
+      <input id="voucherInput" placeholder="Kode voucher">
+      <button onclick="applyVoucher()">Pakai</button>
+    </div>
+    <div class="summary-row" id="voucherStatus"></div>
+    <div class="summary-row"><span>Subtotal</span><strong id="cartSubtotal">Rp0</strong></div>
+    <div class="summary-row"><span>Diskon</span><strong id="cartDiscount">Rp0</strong></div>
+    <div class="summary-row total"><span>Total</span><strong id="cartTotal">Rp0</strong></div>
+    <button class="btn btn-blue" style="width:100%;margin-top:10px" onclick="openCheckout()">💳 Checkout</button>
+  </div>
+</aside>
+
+<!-- MODAL -->
+<div class="modal-wrap" id="modalWrap" onclick="closeModalOutside(event)">
+  <div class="modal" id="modalContent"></div>
+</div>
+
+<!-- BOT -->
+<button class="bot-button" onclick="toggleBot()">🤖</button>
+<div class="bot-window" id="botWindow">
+  <div class="bot-head">
+    <div class="bot-avatar">🤖</div>
+    <div><div class="bot-name">PANN BOT</div><div class="bot-online">● Online</div></div>
+  </div>
+  <div class="bot-messages" id="botMessages">
+    <div class="message bot">👋 Halo! Aku PANN BOT.<br><br>Ada yang bisa aku bantu?</div>
+  </div>
+  <div class="bot-actions">
+    <button onclick="botQuick('produk')">🛍️ Produk</button>
+    <button onclick="botQuick('harga')">💰 Harga</button>
+    <button onclick="botQuick('promo')">🎁 Promo</button>
+    <button onclick="botQuick('order')">📦 Cara Order</button>
+    <button onclick="botQuick('admin')">👨‍💻 Admin</button>
+  </div>
+  <div class="bot-input">
+    <input id="botInput" placeholder="Tulis pesan..." onkeydown="if(event.key==='Enter')sendBot()">
+    <button onclick="sendBot()">➤</button>
+  </div>
+</div>
+
+<!-- FLOATING -->
+<button type="button" class="music-button" id="musicButton" onclick="toggleMusic()" aria-label="Putar musik">🎵</button>
+<button class="wa-button" onclick="contactAdmin()">☎</button>
+<button class="back-top" id="backTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<!-- MOBILE NAV -->
+<nav class="mobile-nav">
+  <button class="active" onclick="goHome(this)"><span class="nav-icon">🏠</span>Beranda</button>
+  <button onclick="scrollProducts()"><span class="nav-icon">🛍️</span>Produk</button>
+  <button onclick="showWishlist()"><span class="nav-icon">♡</span>Wishlist<span class="count" id="mobileWishCount">0</span></button>
+  <button onclick="openCart()"><span class="nav-icon">🛒</span>Keranjang<span class="count" id="mobileCartCount">0</span></button>
+  <button onclick="openProfile()"><span class="nav-icon">👤</span>Akun</button>
+</nav>
+
+<div id="toast"></div>
+
+<!-- 🎵 BACKGROUND MUSIC (TAMBAHAN BARU) -->
+<audio id="bgMusic" loop preload="auto" playsinline>
+  <source src="./musik.mp3" type="audio/mpeg">
+  <source src="./musik.ogg" type="audio/ogg">
+  Browser kamu tidak mendukung audio.
+</audio>
+
+<script>
+/* =========================================================
+   KONFIGURASI
+========================================================= */
+const WA_NUMBER = "6285879543886";
+const SECRET_VOUCHER = { code: "AURACANTIK", discount: 0.50 };
+const PUBLIC_VOUCHERS = { "PANN10": 0.10, "PANN20": 0.20 };
+window.lastOrderMessage = "";
+
+/* =========================================================
+   DATA PRODUK
+========================================================= */
+const products = [
+  { id:1, name:"NOKOS BIASA", category:"NOKOS", price:7000, oldPrice:9000, rating:4.8, sold:124, emoji:"📱", badge:"HOT", description:"NOKOS biasa dengan pilihan harga terjangkau.", detailPage:"nokos" },
+  { id:2, name:"NOKOS V1", category:"NOKOS", price:25000, oldPrice:30000, rating:4.9, sold:187, emoji:"📲", badge:"POPULER", description:"NOKOS V1 untuk kebutuhan digital." },
+  { id:3, name:"NOKOS V2", category:"NOKOS", price:35000, oldPrice:42000, rating:4.9, sold:151, emoji:"📱", badge:"BEST", description:"NOKOS V2 paket lengkap." },
+  { id:4, name:"NOKOS V3", category:"NOKOS", price:45000, oldPrice:55000, rating:5, sold:98, emoji:"📳", badge:"PREMIUM", description:"NOKOS V3 untuk kebutuhan digital." },
+  { id:5, name:"NOKOS CENTANG BIRU", category:"NOKOS", price:150000, oldPrice:175000, rating:4.9, sold:64, emoji:"🔵", badge:"PREMIUM", description:"Produk NOKOS Centang Biru." },
+  { id:6, name:"VERIF META", category:"VERIF", price:50000, oldPrice:60000, rating:4.8, sold:73, emoji:"🔵", badge:"VERIF", description:"Produk Verif Meta." },
+  { id:7, name:"CEBIR + META ONE", category:"VERIF", price:220000, oldPrice:250000, rating:5, sold:41, emoji:"💎", badge:"BUNDLE", description:"Paket CEBIR + META ONE." },
+  { id:8, name:"VERIF META + META ONE", category:"VERIF", price:150000, oldPrice:175000, rating:4.9, sold:56, emoji:"✨", badge:"COMBO", description:"Paket Verif Meta + Meta One." },
+  /* PRODUK JASA BARU 🔥 */
+  { id:9,  name:"JASA EDIT HARA", category:"JASA", price:2000, oldPrice:5000, rating:5, sold:0, emoji:"🎬", badge:"NEW", description:"Jasa edit video Hara dengan hasil rapi, cinematic, dan siap upload. Cocok untuk konten TikTok, Reels, dan Shorts.", glow:true },
+  { id:10, name:"AM PREM", category:"JASA", price:5000, oldPrice:10000, rating:5, sold:0, emoji:"🎵", badge:"PREM", description:"Jasa Alight Motion Premium. Akses full fitur AM, preset, dan template siap pakai tanpa watermark.", glow:true },
+  { id:11, name:"JASA HTML", category:"JASA", price:15000, oldPrice:0, rating:5, sold:0, emoji:"💻", badge:"CUSTOM", description:"Jasa pembuatan website HTML custom. Harga menyesuaikan tingkat kesulitan & fitur. Chat admin untuk konsultasi gratis!", priceLabel:"Menyesuaikan", glow:true },
+  { id:12, name:"JASA AM + CAPCUT PREM", category:"BUNDLE", price:10000, oldPrice:20000, rating:5, sold:0, emoji:"🎞️", badge:"BUNDLE 🔥", description:"Paket hemat! Jasa Alight Motion Premium + CapCut Premium jadi satu. Edit video makin gampang & bebas watermark.", glow:true, bundle:true },
+  { id:13, name:"JASA AM + CANVA PREM", category:"BUNDLE", price:20000, oldPrice:35000, rating:5, sold:0, emoji:"🎨", badge:"BUNDLE 💎", description:"Paket komplit! Jasa Alight Motion Premium + Canva Premium. Bisa bikin video & desain grafis sepuasnya tanpa batas.", glow:true, bundle:true }
+];
+
+/* =========================================================
+   STATE
+========================================================= */
+let cart = JSON.parse(localStorage.getItem("pann_cart") || "[]");
+let wishlist = JSON.parse(localStorage.getItem("pann_wishlist") || "[]");
+let recent = JSON.parse(localStorage.getItem("pann_recent") || "[]");
+let orders = JSON.parse(localStorage.getItem("pann_orders") || "[]");
+let profile = JSON.parse(localStorage.getItem("pann_profile") || "{}");
+let notifications = JSON.parse(localStorage.getItem("pann_notifications") || "[]");
+let currentCategory = "all";
+let currentVoucher = null;
+let currentSlide = 0;
+let selectedNokosPkg = null;
+
+/* =========================================================
+   UTIL
+========================================================= */
+function rupiah(n){
+  return new Intl.NumberFormat("id-ID",{style:"currency",currency:"IDR",maximumFractionDigits:0}).format(n);
+}
+
+function saveAll(){
+  localStorage.setItem("pann_cart", JSON.stringify(cart));
+  localStorage.setItem("pann_wishlist", JSON.stringify(wishlist));
+  localStorage.setItem("pann_recent", JSON.stringify(recent));
+  localStorage.setItem("pann_orders", JSON.stringify(orders));
+  localStorage.setItem("pann_profile", JSON.stringify(profile));
+  localStorage.setItem("pann_notifications", JSON.stringify(notifications));
+}
+
+/* =========================================================
+   BACKGROUND PARTICLES
+========================================================= */
+(function initParticles(){
+  const box = document.getElementById("particles");
+  for(let i=0;i<25;i++){
+    const p = document.createElement("div");
+    p.className = "particle";
+    p.style.left = Math.random()*100 + "%";
+    p.style.animationDuration = (8 + Math.random()*12) + "s";
+    p.style.animationDelay = (-Math.random()*15) + "s";
+    p.style.transform = `scale(${.5+Math.random()})`;
+    box.appendChild(p);
+  }
+})();
+
+/* =========================================================
+   CURSOR SPARKLE (DESKTOP ONLY)
+========================================================= */
+if(window.matchMedia("(hover:hover)").matches){
+  let sparkleThrottle = 0;
+  document.addEventListener("mousemove",(e)=>{
+    const now = Date.now();
+    if(now - sparkleThrottle < 60) return;
+    sparkleThrottle = now;
+    const s = document.createElement("div");
+    s.className = "sparkle";
+    s.style.left = e.clientX + "px";
+    s.style.top = e.clientY + "px";
+    document.body.appendChild(s);
+    setTimeout(()=>s.remove(), 800);
+  });
+}
+
+/* =========================================================
+   LOADER
+========================================================= */
+const loaderBar = document.getElementById("loaderBar");
+const loaderPercent = document.getElementById("loaderPercent");
+const loaderStatus = document.getElementById("loaderStatus");
+const loaderInfo = document.getElementById("loaderInfo");
+let loadProgress = 0;
+const loaderSteps = [
+  [12,"Menyiapkan PANN STORE...","Membuka marketplace"],
+  [28,"Menyiapkan interface...","Memuat tampilan"],
+  [45,"Memuat produk...","Menyiapkan katalog"],
+  [62,"Menyiapkan promo...","Memuat penawaran"],
+  [77,"Menyiapkan keranjang...","Menyiapkan cart"],
+  [90,"Menyiapkan akun...","Menyiapkan profil"],
+  [98,"Hampir selesai...","Finishing"],
+  [100,"PANN STORE siap!","Marketplace siap"]
+];
+let loaderStep = 0;
+
+function loaderUpdate(){
+  loaderBar.style.width = loadProgress + "%";
+  loaderPercent.textContent = Math.floor(loadProgress);
+  while(loaderStep < loaderSteps.length-1 && loadProgress >= loaderSteps[loaderStep][0]){ loaderStep++; }
+  loaderStatus.textContent = loaderSteps[loaderStep][1];
+  loaderInfo.textContent = loaderSteps[loaderStep][2];
+}
+
+const loaderTimer = setInterval(()=>{
+  if(loadProgress < 70) loadProgress += Math.random()*2.8+.6;
+  else if(loadProgress < 92) loadProgress += Math.random()*1.6+.3;
+  else loadProgress += .35;
+
+  if(loadProgress >= 100){
+    loadProgress = 100; loaderUpdate(); clearInterval(loaderTimer);
+    setTimeout(()=>{ document.getElementById("loader").classList.add("hide"); document.body.style.overflow = "auto"; },600);
+  }else loaderUpdate();
+},70);
+
+/* =========================================================
+   RENDER PRODUK
+========================================================= */
+function renderProducts(){
+  const grid = document.getElementById("productGrid");
+  const search = document.getElementById("searchInput").value.toLowerCase().trim();
+  const sort = document.getElementById("sortSelect").value;
+
+  let list = products.filter(p=>{
+    let categoryMatch = true;
+    if(currentCategory !== "all" && currentCategory !== "PROMO"){
+      categoryMatch = p.category === currentCategory;
+    }
+    if(currentCategory === "PROMO"){
+      categoryMatch = p.oldPrice > p.price;
+    }
+    const searchMatch = p.name.toLowerCase().includes(search);
+    return categoryMatch && searchMatch;
+  });
+
+  if(sort === "low") list.sort((a,b)=>a.price-b.price);
+  if(sort === "high") list.sort((a,b)=>b.price-a.price);
+  if(sort === "rating") list.sort((a,b)=>b.rating-a.rating);
+  if(sort === "sold") list.sort((a,b)=>b.sold-a.sold);
+
+  document.getElementById("resultCount").textContent = `${list.length} produk`;
+
+  if(!list.length){
+    grid.innerHTML = `<div style="grid-column:1/-1;padding:50px;text-align:center;color:var(--muted)">🔎<br><br>Produk tidak ditemukan.</div>`;
+    return;
+  }
+  grid.innerHTML = list.map(productCard).join("");
+}
+
+/* =========================================================
+   PRODUCT CARD
+========================================================= */
+function productCard(p){
+  const wished = wishlist.includes(p.id);
+  const discount = p.oldPrice > 0 ? Math.round(((p.oldPrice-p.price)/p.oldPrice)*100) : 0;
+  const glowClass = p.glow ? " glow-card" : "";
+  const priceDisplay = p.priceLabel
+    ? `${rupiah(p.price)}<span class="old-price" style="font-style:italic">${p.priceLabel}</span>`
+    : `${rupiah(p.price)}${p.oldPrice ? `<span class="old-price">${rupiah(p.oldPrice)}</span>` : ""}`;
+  const hematText = discount > 0 ? `🔥 Hemat ${discount}%` : (p.priceLabel ? "💬 Chat admin untuk harga" : "✨ Produk baru");
+
+  return `
+    <article class="product-card reveal${glowClass}" onclick="handleProductClick(${p.id})">
+      <div class="product-visual">
+        <span class="product-badge">${p.badge}</span>
+        <button class="product-wish ${wished?"active":""}" onclick="event.stopPropagation();toggleWishlist(${p.id})">
+          ${wished?"♥":"♡"}
+        </button>
+        <div class="product-emoji">${p.emoji}</div>
+      </div>
+      <div class="product-body">
+        <div class="product-category">${p.category}</div>
+        <div class="product-name">${p.name}</div>
+        <div class="product-rating">★ ${p.rating} <span>(${p.sold} terjual)</span></div>
+        <div class="product-price">${priceDisplay}</div>
+        <div class="product-sold">${hematText}</div>
+        <div class="product-actions">
+          <button class="add-btn" onclick="event.stopPropagation();addToCart(${p.id})">🛒 Keranjang</button>
+          <button class="buy-btn" onclick="event.stopPropagation();buyNow(${p.id})">⚡ Beli</button>
+        </div>
+      </div>
+    </article>
+  `;
+}
+
+/* =========================================================
+   HANDLE KLIK PRODUK
+========================================================= */
+function handleProductClick(id){
+  const p = products.find(x=>x.id===id);
+  if(!p) return;
+  if(p.detailPage === "nokos"){ openNokosPage(); return; }
+  openProduct(id);
+}
+
+/* =========================================================
+   HALAMAN KHUSUS NOKOS BIASA
+========================================================= */
+function openNokosPage(){
+  selectedNokosPkg = null;
+  document.getElementById("modalContent").innerHTML = `
+    <div class="modal-head">
+      <div class="modal-title">📱 NOKOS BIASA</div>
+      <button class="close-btn" onclick="closeModal()">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="nokos-hero">
+        <div class="nokos-hero-emoji">📱</div>
+        <h2>NOKOS BIASA</h2>
+        <p>Pilih paket NOKOS sesuai kebutuhanmu. Semua paket ready stock dan bisa langsung order via WhatsApp.</p>
+        <div class="nokos-stats">
+          <div class="nokos-stat"><strong>5</strong><span>Pilihan Paket</span></div>
+          <div class="nokos-stat"><strong>⭐ 4.8</strong><span>Rating</span></div>
+          <div class="nokos-stat"><strong>⚡ Cepat</strong><span>Proses Order</span></div>
+        </div>
+      </div>
+      <div class="nokos-section-title">📦 Pilih Paket NOKOS</div>
+      <div class="nokos-pkg-list" id="nokosPkgList">
+        <div class="nokos-pkg" data-name="NOKOS BIASA" data-price="7000" onclick="selectNokosPkg(this)">
+          <span class="nokos-pkg-badge">MURAH</span>
+          <div class="nokos-pkg-icon">📱</div>
+          <div class="nokos-pkg-info">
+            <div class="nokos-pkg-name">NOKOS BIASA</div>
+            <div class="nokos-pkg-desc">Paket standar, cocok untuk verifikasi umum</div>
+            <div class="nokos-pkg-price">Rp 7.000 <small>Rp 9.000</small></div>
+          </div>
+          <div class="nokos-pkg-check">✓</div>
+        </div>
+        <div class="nokos-pkg" data-name="NOKOS SV 5H+" data-price="15000" onclick="selectNokosPkg(this)">
+          <div class="nokos-pkg-icon">📲</div>
+          <div class="nokos-pkg-info">
+            <div class="nokos-pkg-name">NOKOS SV 5H+</div>
+            <div class="nokos-pkg-desc">Paket SV dengan masa aktif 5 jam lebih</div>
+            <div class="nokos-pkg-price">Rp 15.000 <small>Rp 18.000</small></div>
+          </div>
+          <div class="nokos-pkg-check">✓</div>
+        </div>
+        <div class="nokos-pkg" data-name="NOKOS SV 1BLN" data-price="25000" onclick="selectNokosPkg(this)">
+          <span class="nokos-pkg-badge">POPULER</span>
+          <div class="nokos-pkg-icon">📳</div>
+          <div class="nokos-pkg-info">
+            <div class="nokos-pkg-name">NOKOS SV 1BLN</div>
+            <div class="nokos-pkg-desc">Paket SV dengan masa aktif 1 bulan</div>
+            <div class="nokos-pkg-price">Rp 25.000 <small>Rp 30.000</small></div>
+          </div>
+          <div class="nokos-pkg-check">✓</div>
+        </div>
+        <div class="nokos-pkg" data-name="NOKOS OLD" data-price="30000" onclick="selectNokosPkg(this)">
+          <div class="nokos-pkg-icon">📞</div>
+          <div class="nokos-pkg-info">
+            <div class="nokos-pkg-name">NOKOS OLD</div>
+            <div class="nokos-pkg-desc">Nomor lama dengan riwayat lebih matang</div>
+            <div class="nokos-pkg-price">Rp 30.000 <small>Rp 35.000</small></div>
+          </div>
+          <div class="nokos-pkg-check">✓</div>
+        </div>
+        <div class="nokos-pkg" data-name="NOKOS SIAP PAKE" data-price="20000" onclick="selectNokosPkg(this)">
+          <span class="nokos-pkg-badge">BEST</span>
+          <div class="nokos-pkg-icon">✅</div>
+          <div class="nokos-pkg-info">
+            <div class="nokos-pkg-name">NOKOS SIAP PAKE</div>
+            <div class="nokos-pkg-desc">Langsung siap dipakai tanpa setup tambahan</div>
+            <div class="nokos-pkg-price">Rp 20.000 <small>Rp 24.000</small></div>
+          </div>
+          <div class="nokos-pkg-check">✓</div>
+        </div>
+      </div>
+      <div class="nokos-section-title">📝 Detail Paket</div>
+      <div class="nokos-detail empty" id="nokosDetailBox">👆 Pilih salah satu paket di atas untuk melihat detail.</div>
+      <div class="nokos-section-title">ℹ️ Info Layanan</div>
+      <div class="nokos-info-grid">
+        <div class="nokos-info-card"><div class="nokos-info-icon">⚡</div><div class="nokos-info-title">Proses Cepat</div><div class="nokos-info-desc">Order langsung diproses admin</div></div>
+        <div class="nokos-info-card"><div class="nokos-info-icon">🔒</div><div class="nokos-info-title">Aman</div><div class="nokos-info-desc">Transaksi 100% aman</div></div>
+        <div class="nokos-info-card"><div class="nokos-info-icon">💬</div><div class="nokos-info-title">Via WhatsApp</div><div class="nokos-info-desc">Order langsung ke admin</div></div>
+        <div class="nokos-info-card"><div class="nokos-info-icon">✅</div><div class="nokos-info-title">Ready Stock</div><div class="nokos-info-desc">Semua paket tersedia</div></div>
+      </div>
+      <div class="nokos-bottom">
+        <div class="nokos-bottom-info">
+          <small>Total Bayar</small>
+          <strong id="nokosTotal">Rp 0</strong>
+        </div>
+        <button class="btn btn-blue" id="nokosOrderBtn" onclick="orderNokosWA()" disabled>💬 Order via WA</button>
+      </div>
+    </div>
+  `;
+  document.getElementById("modalWrap").classList.add("show");
+}
+
+function selectNokosPkg(el){
+  document.querySelectorAll(".nokos-pkg").forEach(p=>p.classList.remove("selected"));
+  el.classList.add("selected");
+  selectedNokosPkg = { name: el.dataset.name, price: parseInt(el.dataset.price) };
+  document.getElementById("nokosTotal").textContent = rupiah(selectedNokosPkg.price);
+  document.getElementById("nokosOrderBtn").disabled = false;
+  document.getElementById("nokosDetailBox").classList.remove("empty");
+  document.getElementById("nokosDetailBox").innerHTML = `
+    📦 <strong>Paket:</strong> ${selectedNokosPkg.name}<br>
+    💵 <strong>Harga:</strong> ${rupiah(selectedNokosPkg.price)}<br>
+    🟡 <strong>Status:</strong> Ready Stock<br>
+    📌 <strong>Kategori:</strong> NOKOS BIASA<br>
+    🚀 <strong>Proses:</strong> 1-5 menit setelah konfirmasi<br><br>
+    <span style="color:var(--primary);font-weight:800;font-size:13px">👉 Klik "Order via WA" untuk memesan.</span>
+  `;
+  showToast(`✓ ${selectedNokosPkg.name} dipilih`);
+}
+
+function orderNokosWA(){
+  if(!selectedNokosPkg){ showToast("⚠️ Pilih paket terlebih dahulu."); return; }
+  const orderId = "PANN-" + new Date().getFullYear().toString().slice(-2) + String(new Date().getMonth()+1).padStart(2,"0") + String(new Date().getDate()).padStart(2,"0") + "-" + Math.floor(1000+Math.random()*9000);
+  const message = `🛍️ *PANN STORE*\n\n📦 *ORDER NOKOS BIASA*\n\n🧾 *Nomor Pesanan:*\n${orderId}\n\n📌 *Paket:*\n${selectedNokosPkg.name}\n\n💵 *Harga:*\n${rupiah(selectedNokosPkg.price)}\n\n🟡 *Status:*\nMenunggu Konfirmasi\n\n🙏 Mohon diproses ya admin.\n💙 *PANN STORE*`;
+  const url = "https://wa.me/" + WA_NUMBER + "?text=" + encodeURIComponent(message);
+  const win = window.open(url, "_blank");
+  if(!win || win.closed || typeof win.closed === "undefined"){ showToast("⚠️ Popup diblokir. Coba lagi."); return; }
+  showToast("📲 Membuka WhatsApp...");
+}
+
+/* =========================================================
+   FLASH SALE
+========================================================= */
+function renderFlash(){
+  const flash = document.getElementById("flashProducts");
+  const flashItems = products.filter(p => p.glow).slice(0,4);
+  const finalItems = flashItems.length ? flashItems : products.slice(0,4);
+  flash.innerHTML = finalItems.map(p=>`
+    <div class="flash-card" onclick="handleProductClick(${p.id})">
+      <div class="flash-image">${p.emoji}</div>
+      <div class="flash-name">${p.name}</div>
+      <div class="flash-price">${rupiah(p.price)}</div>
+    </div>
+  `).join("");
+}
+
+/* =========================================================
+   CATEGORY
+========================================================= */
+function filterCategory(category){
+  currentCategory = category;
+  document.querySelectorAll(".category-card").forEach(el=>{
+    el.classList.toggle("active", el.dataset.category === category);
+  });
+  document.querySelectorAll(".filter-option").forEach(el=>{
+    el.classList.toggle("active", el.dataset.filter === category);
+  });
+  renderProducts();
+  scrollProducts();
+}
+
+/* =========================================================
+   SEARCH
+========================================================= */
+const searchInput = document.getElementById("searchInput");
+const suggestions = document.getElementById("searchSuggestions");
+
+searchInput.addEventListener("input",()=>{
+  renderProducts();
+  const value = searchInput.value.toLowerCase().trim();
+  if(!value){ suggestions.classList.remove("show"); return; }
+  const found = products.filter(p=>p.name.toLowerCase().includes(value)).slice(0,5);
+  if(!found.length){
+    suggestions.innerHTML = `<div class="suggestion">🔎 Produk tidak ditemukan</div>`;
+  }else{
+    suggestions.innerHTML = found.map(p=>`
+      <div class="suggestion" onclick="handleProductClick(${p.id});suggestions.classList.remove('show')">
+        <span>${p.emoji}</span><strong>${p.name}</strong>
+      </div>
+    `).join("");
+  }
+  suggestions.classList.add("show");
+});
+
+document.addEventListener("click",e=>{
+  if(!e.target.closest(".search-wrap")) suggestions.classList.remove("show");
+});
+
+/* =========================================================
+   CART
+========================================================= */
+function addToCart(id){
+  if(cart.includes(id)){ showToast("Produk sudah ada di keranjang."); openCart(); return; }
+  if(cart.length >= 3){ showToast("🛒 Keranjang sudah penuh! Maksimal 3 barang."); return; }
+  cart.push(id);
+  saveAll(); updateCounts(); renderCart();
+  showToast("🛒 Produk masuk ke keranjang!");
+}
+
+function removeFromCart(id){
+  cart = cart.filter(x=> x !== id);
+  saveAll(); updateCounts(); renderCart();
+  showToast("Produk dihapus dari keranjang.");
+}
+
+function clearCart(){
+  if(!cart.length)return;
+  if(confirm("Kosongkan semua keranjang?")){
+    cart = []; currentVoucher = null;
+    saveAll(); updateCounts(); renderCart();
+    showToast("🗑️ Keranjang dikosongkan.");
+  }
+}
+
+function cartProducts(){ return cart.map(id=>products.find(p=>p.id===id)).filter(Boolean); }
+function calculateSubtotal(){ return cartProducts().reduce((sum,p)=>sum+p.price,0); }
+
+function calculateDiscount(){
+  const subtotal = calculateSubtotal();
+  if(!currentVoucher) return 0;
+  if(PUBLIC_VOUCHERS[currentVoucher]) return Math.round(subtotal * PUBLIC_VOUCHERS[currentVoucher]);
+  if(currentVoucher === SECRET_VOUCHER.code) return Math.round(subtotal * SECRET_VOUCHER.discount);
+  return 0;
+}
+
+function calculateTotal(){ return Math.max(0, calculateSubtotal()-calculateDiscount()); }
+
+function renderCart(){
+  const body = document.getElementById("cartBody");
+  const items = cartProducts();
+  if(!items.length){
+    body.innerHTML = `
+      <div class="cart-empty">
+        <div>
+          <div style="font-size:55px">🛒</div>
+          <strong>Keranjang masih kosong</strong>
+          <p style="margin-top:7px">Yuk pilih produk dulu.</p>
+          <button class="btn btn-blue" style="margin-top:15px" onclick="closeCart();scrollProducts()">🛍️ Belanja</button>
+        </div>
+      </div>`;
+  }else{
+    body.innerHTML = items.map(p=>`
+      <div class="cart-item">
+        <div class="cart-icon">${p.emoji}</div>
+        <div>
+          <div class="cart-name">${p.name}</div>
+          <div class="cart-price">${rupiah(p.price)}</div>
+        </div>
+        <button class="remove-cart" onclick="removeFromCart(${p.id})">Hapus</button>
+      </div>
+    `).join("") + `<button class="btn" style="width:100%;margin-top:14px;background:var(--bg);color:#ef4444" onclick="clearCart()">🗑️ Kosongkan Keranjang</button>`;
+  }
+  document.getElementById("cartSubtotal").textContent = rupiah(calculateSubtotal());
+  document.getElementById("cartDiscount").textContent = "-"+rupiah(calculateDiscount());
+  document.getElementById("cartTotal").textContent = rupiah(calculateTotal());
+  document.getElementById("voucherStatus").innerHTML = currentVoucher ? `🎟️ Voucher <strong>${currentVoucher}</strong> aktif` : "";
+}
+
+function openCart(){
+  renderCart();
+  document.getElementById("cartOverlay").classList.add("show");
+  document.getElementById("cartDrawer").classList.add("show");
+}
+function closeCart(){
+  document.getElementById("cartOverlay").classList.remove("show");
+  document.getElementById("cartDrawer").classList.remove("show");
+}
+
+/* =========================================================
+   VOUCHER
+========================================================= */
+function applyVoucher(){
+  const input = document.getElementById("voucherInput").value.trim().toUpperCase();
+  if(!input){ showToast("Masukkan kode voucher."); return; }
+  if(!cart.length){ showToast("🛒 Keranjang masih kosong."); return; }
+  if(PUBLIC_VOUCHERS[input]){ currentVoucher = input; renderCart(); showToast(`🎉 Voucher ${input} berhasil digunakan!`); return; }
+  if(input === SECRET_VOUCHER.code){ currentVoucher = input; renderCart(); showToast(`🎉 Voucher berhasil digunakan!`); return; }
+  showToast("❌ Voucher tidak valid.");
+}
+
+function copyVoucher(code){
+  navigator.clipboard?.writeText(code).then(()=>showToast(`🎟️ ${code} berhasil disalin!`)).catch(()=>showToast(`Kode voucher: ${code}`));
+}
+
+/* =========================================================
+   PRODUCT DETAIL
+========================================================= */
+function openProduct(id){
+  const p = products.find(x=>x.id===id);
+  if(!p)return;
+  recent = [p.id,...recent.filter(x=>x!==p.id)].slice(0,4);
+  saveAll(); renderRecent();
+  const wished = wishlist.includes(p.id);
+  const discount = p.oldPrice > 0 ? Math.round(((p.oldPrice-p.price)/p.oldPrice)*100) : 0;
+  document.getElementById("modalContent").innerHTML = `
+    <div class="modal-head">
+      <div class="modal-title">Detail Produk</div>
+      <button class="close-btn" onclick="closeModal()">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="product-detail">
+        <div class="detail-image">${p.emoji}</div>
+        <div>
+          <div class="detail-category">${p.category}</div>
+          <div class="detail-name">${p.name}</div>
+          <div class="product-rating">★ ${p.rating} <span>• ${p.sold} terjual</span></div>
+          <div class="detail-price">${rupiah(p.price)}</div>
+          ${p.oldPrice ? `<div style="color:#98a2b3;text-decoration:line-through;font-size:12px;margin-top:4px">${rupiah(p.oldPrice)} • Hemat ${discount}%</div>` : ""}
+          <div class="detail-desc">${p.description}<br><br>📦 Produk: ${p.name}<br>⭐ Rating: ${p.rating}/5<br>🔥 Terjual: ${p.sold}</div>
+          <div class="detail-buttons">
+            <button class="btn btn-blue" onclick="addToCart(${p.id});closeModal()">🛒 Keranjang</button>
+            <button class="btn" style="background:var(--blue-soft);color:var(--primary)" onclick="buyNow(${p.id})">⚡ Beli Sekarang</button>
+            <button class="btn" style="background:var(--bg)" onclick="toggleWishlist(${p.id});openProduct(${p.id})">${wished?"♥ Hapus Wishlist":"♡ Wishlist"}</button>
+            <button class="btn" style="background:var(--bg)" onclick="shareProduct(${p.id})">📤 Bagikan</button>
+          </div>
+        </div>
+      </div>
+    </div>`;
+  document.getElementById("modalWrap").classList.add("show");
+}
+
+function closeModal(){ document.getElementById("modalWrap").classList.remove("show"); }
+function closeModalOutside(e){ if(e.target.id === "modalWrap") closeModal(); }
+
+function shareProduct(id){
+  const p = products.find(x=>x.id===id);
+  if(!p)return;
+  const text = `🛍️ ${p.name} - ${rupiah(p.price)} | PANN STORE`;
+  if(navigator.share){ navigator.share({ title:p.name, text:text, url:location.href }); }
+  else{ navigator.clipboard?.writeText(text).then(()=>showToast("📤 Detail produk disalin!")); }
+}
+
+/* =========================================================
+   WISHLIST
+========================================================= */
+function toggleWishlist(id){
+  if(wishlist.includes(id)){ wishlist = wishlist.filter(x=>x!==id); showToast("♡ Dihapus dari wishlist."); }
+  else{ wishlist.push(id); showToast("♥ Ditambahkan ke wishlist!"); }
+  saveAll(); updateCounts(); renderProducts();
+}
+
+function showWishlist(){
+  const items = wishlist.map(id=>products.find(p=>p.id===id)).filter(Boolean);
+  document.getElementById("modalContent").innerHTML = `
+    <div class="modal-head">
+      <div class="modal-title">❤️ Wishlist</div>
+      <button class="close-btn" onclick="closeModal()">✕</button>
+    </div>
+    <div class="modal-body">
+      ${items.length
+        ? `<div class="product-grid">${items.map(productCard).join("")}</div>`
+        : `<div style="text-align:center;padding:50px;color:var(--muted)"><div style="font-size:50px">♡</div><br>Wishlist masih kosong.</div>`}
+    </div>`;
+  document.getElementById("modalWrap").classList.add("show");
+}
+
+/* =========================================================
+   BUY NOW
+========================================================= */
+function buyNow(id){
+  if(!cart.includes(id)){
+    if(cart.length >= 3){ showToast("🛒 Keranjang penuh! Maksimal 3 barang."); return; }
+    cart.push(id);
+  }
+  saveAll(); updateCounts();
+  closeModal(); openCheckout();
+}
+
+/* =========================================================
+   CHECKOUT
+========================================================= */
+function openCheckout(){
+  if(!cart.length){ showToast("🛒 Keranjang masih kosong."); return; }
+  closeCart();
+  const items = cartProducts();
+  document.getElementById("modalContent").innerHTML = `
+    <div class="modal-head">
+      <div class="modal-title">💳 Checkout</div>
+      <button class="close-btn" onclick="closeModal()">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-grid">
+        <div>
+          <label class="form-label">Nama Pembeli</label>
+          <input class="form-input" id="buyerName" value="${profile.name || ""}" placeholder="Masukkan nama">
+        </div>
+        <div>
+          <label class="form-label">Nomor WhatsApp</label>
+          <input class="form-input" id="buyerPhone" value="${profile.phone || ""}" placeholder="08xxxxxxxxxx">
+        </div>
+        <div>
+          <label class="form-label">Produk</label>
+          <div style="background:var(--bg);border-radius:12px;padding:13px;line-height:1.8;font-size:12px">
+            ${items.map(p=>`📦 ${p.name} — ${rupiah(p.price)}<br>`).join("")}
+          </div>
+        </div>
+        <div style="padding:14px;border:1px solid var(--border);border-radius:13px">
+          <div class="summary-row"><span>Subtotal</span><strong>${rupiah(calculateSubtotal())}</strong></div>
+          <div class="summary-row"><span>Diskon</span><strong>-${rupiah(calculateDiscount())}</strong></div>
+          <div class="summary-row total"><span>Total</span><strong>${rupiah(calculateTotal())}</strong></div>
+        </div>
+        <button class="btn btn-blue" onclick="confirmOrder()" style="width:100%">✅ Buat Pesanan</button>
+      </div>
+    </div>`;
+  document.getElementById("modalWrap").classList.add("show");
+}
+
+function generateOrderNumber(){
+  const date = new Date();
+  const d = String(date.getDate()).padStart(2,"0");
+  const m = String(date.getMonth()+1).padStart(2,"0");
+  const y = String(date.getFullYear()).slice(-2);
+  const random = Math.floor(10000 + Math.random()*90000);
+  return `PANN-${d}${m}${y}-${random}`;
+}
+
+function confirmOrder(){
+  const name = document.getElementById("buyerName")?.value.trim();
+  const phone = document.getElementById("buyerPhone")?.value.trim();
+  if(!name){ showToast("👤 Masukkan nama terlebih dahulu."); return; }
+  if(!phone){ showToast("📱 Masukkan nomor WhatsApp."); return; }
+  profile.name = name; profile.phone = phone;
+  const orderNumber = generateOrderNumber();
+  const items = cartProducts();
+  const order = {
+    number: orderNumber,
+    date: new Date().toLocaleString("id-ID",{dateStyle:"medium",timeStyle:"short"}),
+    name, phone,
+    items: items.map(p=>({id:p.id,name:p.name,price:p.price,emoji:p.emoji})),
+    subtotal: calculateSubtotal(),
+    discount: calculateDiscount(),
+    total: calculateTotal(),
+    voucher: currentVoucher,
+    status: "Menunggu Konfirmasi"
+  };
+  orders.unshift(order);
+  notifications.unshift({ id: Date.now(), title: "Pesanan berhasil dibuat!", text: `🧾 ${orderNumber}`, read: false });
+  saveAll();
+
+  const message = `🛍️ *PANN STORE*\n\n🎉 *ORDER BARU!*\n\n🧾 *Nomor Pesanan:*\n${orderNumber}\n\n👤 *Nama:*\n${name}\n\n📱 *WhatsApp:*\n${phone}\n\n📦 *Pesanan:*\n${items.map(p => `• ${p.name} — ${rupiah(p.price)}`).join("\n")}\n\n💰 *Subtotal:*\n${rupiah(order.subtotal)}\n\n🎟️ *Voucher:*\n${order.voucher || "Tidak ada"}\n\n🎁 *Diskon:*\n${rupiah(order.discount)}\n\n💵 *TOTAL:*\n${rupiah(order.total)}\n\n🟡 *Status:*\nMenunggu Konfirmasi\n\n🙏 Terima kasih sudah order!\n🔥 Semangat dan ditunggu order berikutnya!\n💙 *PANN STORE*`;
+
+  window.lastOrderMessage = message;
+  cart = []; currentVoucher = null;
+  saveAll(); updateCounts(); closeModal(); renderCart();
+  showOrderSuccess(order, message);
+  fireConfetti();
+}
+
+function showOrderSuccess(order, message){
+  window.lastOrderMessage = message;
+  const safeMessage = encodeURIComponent(message);
+  document.getElementById("modalContent").innerHTML = `
+    <div class="modal-head">
+      <div class="modal-title">🎉 Pesanan Berhasil</div>
+      <button class="close-btn" onclick="closeModal()">✕</button>
+    </div>
+    <div class="modal-body">
+      <div style="text-align:center;padding:8px 0 22px">
+        <div style="font-size:55px">🎉</div>
+        <h2 style="margin-top:10px">Terima kasih!</h2>
+        <p style="color:var(--muted);font-size:12px;margin-top:6px">Pesananmu berhasil dibuat.</p>
+      </div>
+      <div style="padding:17px;border-radius:15px;background:var(--blue-soft);text-align:center">
+        <small>🧾 NOMOR PESANAN</small>
+        <div style="margin-top:7px;color:var(--primary);font-size:21px;font-weight:1000">${order.number}</div>
+        <button class="btn btn-blue" style="margin-top:12px" onclick="copyOrder('${order.number}')">📋 Salin Nomor</button>
+      </div>
+      <div style="margin-top:15px;padding:15px;border:1px solid var(--border);border-radius:14px;font-size:12px;line-height:2">
+        📦 ${order.items.length} produk<br>
+        💵 Total: <strong>${rupiah(order.total)}</strong><br>
+        🟡 Status: <strong>${order.status}</strong>
+      </div>
+      <button class="btn btn-blue" style="width:100%;margin-top:14px" data-wa-message="${safeMessage}" onclick="sendWhatsAppFromButton(this)">📲 Kirim ke WhatsApp</button>
+      <button class="btn" style="width:100%;margin-top:7px;background:var(--bg)" onclick="copyOrderMessage()">📋 Salin Pesan Manual</button>
+      <button class="btn" style="width:100%;margin-top:7px;background:var(--bg)" onclick="openOrders()">📦 Lihat Pesanan</button>
+    </div>`;
+  document.getElementById("modalWrap").classList.add("show");
+}
+
+/* =========================================================
+   WHATSAPP
+========================================================= */
+function sendWhatsAppFromButton(button){
+  const encoded = button.getAttribute("data-wa-message");
+  if(!encoded){ showToast("❌ Pesan WhatsApp tidak ditemukan."); return; }
+  const url = "https://wa.me/" + WA_NUMBER + "?text=" + encoded;
+  const win = window.open(url, "_blank");
+  if(!win || win.closed || typeof win.closed === "undefined"){
+    showToast("⚠️ Popup diblokir. Pakai tombol Salin Pesan Manual.");
+  }
+}
+
+function copyOrderMessage(){
+  const msg = window.lastOrderMessage;
+  if(!msg){ showToast("❌ Tidak ada pesan untuk disalin."); return; }
+  if(navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(msg).then(()=>showToast("📋 Pesan disalin! Buka WhatsApp & tempel.")).catch(()=>fallbackCopy(msg));
+  }else fallbackCopy(msg);
+}
+
+function fallbackCopy(text){
+  const ta = document.createElement("textarea");
+  ta.value = text; ta.style.position = "fixed"; ta.style.opacity = "0";
+  document.body.appendChild(ta); ta.focus(); ta.select();
+  try{ document.execCommand("copy"); showToast("📋 Pesan disalin!"); }
+  catch(e){ showToast("❌ Gagal menyalin."); }
+  document.body.removeChild(ta);
+}
+
+function copyOrder(number){
+  navigator.clipboard?.writeText(number).then(()=>showToast("📋 Nomor pesanan disalin!"));
+}
+
+/* =========================================================
+   ORDERS
+========================================================= */
+function openOrders(){
+  const list = orders;
+  document.getElementById("modalContent").innerHTML = `
+    <div class="modal-head">
+      <div class="modal-title">📦 Pesanan Saya</div>
+      <button class="close-btn" onclick="closeModal()">✕</button>
+    </div>
+    <div class="modal-body">
+      ${list.length
+        ? list.map((o,i)=>`
+            <div style="padding:15px;border:1px solid var(--border);border-radius:15px;margin-bottom:10px">
+              <div style="display:flex;justify-content:space-between;gap:10px">
+                <strong>🧾 ${o.number}</strong>
+                <span style="color:#f59e0b;font-size:10px;font-weight:900">🟡 ${o.status}</span>
+              </div>
+              <div style="margin-top:9px;color:var(--muted);font-size:11px">${o.date}</div>
+              <div style="margin-top:9px;font-size:12px">${o.items.map(x=>`📦 ${x.name}`).join("<br>")}</div>
+              <div style="margin-top:10px;font-weight:950">${rupiah(o.total)}</div>
+              <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:12px">
+                <button class="btn" style="min-height:34px;background:var(--blue-soft);color:var(--primary);font-size:10px" onclick="copyOrder('${o.number}')">📋 Salin</button>
+                <button class="btn" style="min-height:34px;background:var(--bg);font-size:10px" onclick="reorder(${i})">🔄 Pesan Lagi</button>
+              </div>
+            </div>`).join("")
+        : `<div style="padding:60px 20px;text-align:center;color:var(--muted)"><div style="font-size:50px">📦</div><br>Belum ada pesanan.</div>`}
+    </div>`;
+  document.getElementById("modalWrap").classList.add("show");
+}
+
+function reorder(index){
+  const order = orders[index];
+  for(const item of order.items){
+    if(!cart.includes(item.id) && cart.length < 3) cart.push(item.id);
+  }
+  saveAll(); updateCounts(); closeModal(); openCart();
+  showToast("🔄 Produk dimasukkan lagi ke keranjang.");
+}
+
+/* =========================================================
+   PROFILE
+========================================================= */
+function openProfile(){
+  document.getElementById("modalContent").innerHTML = `
+    <div class="modal-head">
+      <div class="modal-title">👤 Akun Saya</div>
+      <button class="close-btn" onclick="closeModal()">✕</button>
+    </div>
+    <div class="modal-body">
+      <div style="display:flex;align-items:center;gap:13px;padding:15px;border-radius:15px;background:var(--blue-soft)">
+        <div class="profile-mini">${profile.name ? profile.name[0].toUpperCase() : "P"}</div>
+        <div>
+          <strong>${profile.name || "Pelanggan PANN"}</strong>
+          <div style="color:var(--muted);font-size:11px;margin-top:3px">${profile.phone || "Nomor belum diatur"}</div>
+        </div>
+      </div>
+      <div class="form-grid" style="margin-top:18px">
+        <div>
+          <label class="form-label">Nama</label>
+          <input class="form-input" id="profileName" value="${profile.name || ""}" placeholder="Nama">
+        </div>
+        <div>
+          <label class="form-label">WhatsApp</label>
+          <input class="form-input" id="profilePhone" value="${profile.phone || ""}" placeholder="08xxxxxxxxxx">
+        </div>
+        <button class="btn btn-blue" onclick="saveProfile()">💾 Simpan Profil</button>
+        <button class="btn" style="background:var(--bg)" onclick="showWishlist()">❤️ Wishlist</button>
+        <button class="btn" style="background:var(--bg)" onclick="openOrders()">📦 Pesanan Saya</button>
+        <button class="btn" style="background:var(--bg)" onclick="toggleDark()">🌙 Ganti Tema</button>
+      </div>
+    </div>`;
+  document.getElementById("modalWrap").classList.add("show");
+}
+
+function saveProfile(){
+  const name = document.getElementById("profileName").value.trim();
+  const phone = document.getElementById("profilePhone").value.trim();
+  profile = { name, phone };
+  saveAll(); updateCounts(); closeModal();
+  showToast("👤 Profil berhasil disimpan.");
+}
+
+/* =========================================================
+   NOTIFICATIONS
+========================================================= */
+function openNotifications(){
+  document.getElementById("modalContent").innerHTML = `
+    <div class="modal-head">
+      <div class="modal-title">🔔 Notifikasi</div>
+      <button class="close-btn" onclick="closeModal()">✕</button>
+    </div>
+    <div class="modal-body">
+      ${notifications.length
+        ? notifications.map(n=>`
+            <div style="padding:13px;border-bottom:1px solid var(--border);${n.read?"opacity:.6":""}">
+              <strong>${n.title}</strong>
+              <div style="color:var(--muted);font-size:11px;margin-top:4px">${n.text}</div>
+            </div>`).join("")
+        : `<div style="padding:50px;text-align:center;color:var(--muted)">🔔 Tidak ada notifikasi.</div>`}
+      ${notifications.length ? `<button class="btn" style="width:100%;margin-top:15px;background:var(--bg)" onclick="readNotifications()">✓ Tandai sudah dibaca</button>` : ""}
+    </div>`;
+  document.getElementById("modalWrap").classList.add("show");
+}
+
+function readNotifications(){
+  notifications = notifications.map(n=>({ ...n, read:true }));
+  saveAll(); updateCounts(); openNotifications();
+}
+
+/* =========================================================
+   COUNTS
+========================================================= */
+function updateCounts(){
+  document.getElementById("cartCount").textContent = cart.length;
+  document.getElementById("wishCount").textContent = wishlist.length;
+  document.getElementById("mobileCartCount").textContent = cart.length;
+  document.getElementById("mobileWishCount").textContent = wishlist.length;
+  const unread = notifications.filter(n=>!n.read).length;
+  document.getElementById("notifCount").textContent = unread;
+  document.getElementById("profileInitial").textContent = profile.name ? profile.name[0].toUpperCase() : "P";
+}
+
+/* =========================================================
+   RECENT
+========================================================= */
+function renderRecent(){
+  const box = document.getElementById("recentProducts");
+  const list = recent.map(id=>products.find(p=>p.id===id)).filter(Boolean);
+  if(!list.length){
+    box.innerHTML = `<div style="grid-column:1/-1;padding:25px;color:var(--muted)">Belum ada produk yang dilihat.</div>`;
+    return;
+  }
+  box.innerHTML = list.map(productCard).join("");
+}
+
+/* =========================================================
+   BOT
+========================================================= */
+function toggleBot(){ document.getElementById("botWindow").classList.toggle("show"); }
+
+function botMessage(text,type="bot"){
+  const box = document.getElementById("botMessages");
+  const div = document.createElement("div");
+  div.className = `message ${type}`;
+  div.innerHTML = text;
+  box.appendChild(div);
+  box.scrollTop = box.scrollHeight;
+}
+
+function botQuick(type){
+  if(type==="produk") botMessage("🛍️ Produk PANN STORE tersedia di bagian Produk.");
+  if(type==="harga") botMessage(products.map(p=>`💰 ${p.name}: ${rupiah(p.price)}`).join("<br>"));
+  if(type==="promo") botMessage("🎁 Kamu bisa menggunakan voucher PANN10 atau PANN20 saat checkout.");
+  if(type==="order") botMessage("📦 Pilih produk → Keranjang → Checkout → isi nama & WhatsApp → Buat Pesanan → kirim detail ke WhatsApp.");
+  if(type==="admin") botMessage("👨‍💻 Kamu bisa menghubungi admin melalui tombol WhatsApp.");
+}
+
+function sendBot(){
+  const input = document.getElementById("botInput");
+  const text = input.value.trim();
+  if(!text)return;
+  botMessage(text,"user");
+  input.value = "";
+  setTimeout(()=>{
+    const t = text.toLowerCase();
+    if(t.includes("harga")) botMessage(products.slice(0,5).map(p=>`💰 ${p.name}: ${rupiah(p.price)}`).join("<br>"));
+    else if(t.includes("order") || t.includes("pesan")) botMessage("📦 Cara order: pilih produk → masukkan keranjang → checkout → isi data → kirim ke WhatsApp.");
+    else if(t.includes("promo") || t.includes("voucher")) botMessage("🎁 Voucher tersedia: PANN10 dan PANN20.");
+    else if(t.includes("admin") || t.includes("wa") || t.includes("whatsapp")) botMessage("👨‍💻 Silakan tekan tombol WhatsApp untuk menghubungi admin.");
+    else botMessage("🤖 Aku bisa membantu tentang produk, harga, promo, cara order, dan admin.");
+  },450);
+}
+
+/* =========================================================
+   ADMIN
+========================================================= */
+function contactAdmin(){
+  const text = `🛍️ Halo PANN STORE!\n\nSaya ingin bertanya mengenai produk/order.`;
+  window.open("https://wa.me/" + WA_NUMBER + "?text=" + encodeURIComponent(text), "_blank");
+}
+
+/* =========================================================
+   HERO
+========================================================= */
+const heroSlides = document.querySelectorAll(".hero-slide");
+const heroDots = document.querySelectorAll(".hero-dot");
+
+function heroGo(index){
+  currentSlide = index;
+  heroSlides.forEach((s,i)=>s.classList.toggle("active", i===index));
+  heroDots.forEach((d,i)=>d.classList.toggle("active", i===index));
+}
+setInterval(()=>{ heroGo((currentSlide+1)%heroSlides.length); },6000);
+
+/* =========================================================
+   FLASH COUNTDOWN
+========================================================= */
+let saleEnd = localStorage.getItem("pann_sale_end");
+if(!saleEnd){ saleEnd = Date.now() + 1000*60*60*8; localStorage.setItem("pann_sale_end", saleEnd); }
+else saleEnd = Number(saleEnd);
+
+function updateSaleTimer(){
+  let diff = saleEnd-Date.now();
+  if(diff<=0){ saleEnd = Date.now()+1000*60*60*8; localStorage.setItem("pann_sale_end", saleEnd); diff = saleEnd-Date.now(); }
+  const h = Math.floor(diff/3600000);
+  const m = Math.floor((diff%3600000)/60000);
+  const s = Math.floor((diff%60000)/1000);
+  document.getElementById("saleHours").textContent = String(h).padStart(2,"0");
+  document.getElementById("saleMinutes").textContent = String(m).padStart(2,"0");
+  document.getElementById("saleSeconds").textContent = String(s).padStart(2,"0");
+}
+setInterval(updateSaleTimer,1000);
+updateSaleTimer();
+
+/* =========================================================
+   FAQ
+========================================================= */
+function toggleFaq(el){
+  const item = el.parentElement;
+  item.classList.toggle("open");
+  const sign = el.querySelector("span");
+  sign.textContent = item.classList.contains("open") ? "−" : "＋";
+}
+
+/* =========================================================
+   DARK MODE
+========================================================= */
+function toggleDark(){
+  document.body.classList.toggle("dark");
+  localStorage.setItem("pann_dark", document.body.classList.contains("dark") ? "1" : "0");
+  showToast(document.body.classList.contains("dark") ? "🌙 Mode gelap aktif." : "☀️ Mode terang aktif.");
+}
+if(localStorage.getItem("pann_dark")==="1") document.body.classList.add("dark");
+
+/* =========================================================
+   MUSIC
+========================================================= */
+let musicPlaying = false;
+const bgMusic = document.getElementById("bgMusic");
+const musicBtn = document.getElementById("musicButton");
+
+// Set volume awal
+if(bgMusic) bgMusic.volume = 0.4;
+
+// Fungsi utama untuk memutar musik
+function playMusic(){
+  if(!bgMusic) return;
+  bgMusic.volume = 0.4;
+  const promise = bgMusic.play();
+  if(promise !== undefined){
+    promise.then(()=>{
+      musicPlaying = true;
+      musicBtn.textContent = "🔊";
+      localStorage.setItem("pann_music", "1");
+      showToast("🎵 Musik aktif.");
+    }).catch((err)=>{
+      console.warn("Play error:", err);
+      showToast("⚠️ Klik di halaman dulu, lalu tekan 🎵 lagi.");
+    });
+  }
+}
+
+// Fungsi utama untuk pause musik
+function pauseMusic(){
+  if(!bgMusic) return;
+  bgMusic.pause();
+  musicPlaying = false;
+  musicBtn.textContent = "🎵";
+  localStorage.setItem("pann_music", "0");
+  showToast("🔇 Musik dimatikan.");
+}
+
+// Toggle tombol musik
+function toggleMusic(){
+  if(musicPlaying){
+    pauseMusic();
+  } else {
+    playMusic();
+  }
+}
+
+/* =========================================================
+   NAVIGATION
+========================================================= */
+function scrollProducts(){ document.getElementById("productsSection").scrollIntoView({ behavior:"smooth" }); }
+function scrollToFlash(){ document.getElementById("flashSale").scrollIntoView({ behavior:"smooth" }); }
+function scrollToFaq(){ document.getElementById("faq").scrollIntoView({ behavior:"smooth" }); }
+function goHome(button){
+  window.scrollTo({ top:0, behavior:"smooth" });
+  if(button){
+    document.querySelectorAll(".mobile-nav button").forEach(b=>b.classList.remove("active"));
+    button.classList.add("active");
+  }
+}
+
+/* =========================================================
+   PROMO
+========================================================= */
+function showPromo(){ copyVoucher("PANN10"); scrollToFlash(); }
+
+/* =========================================================
+   TOAST
+========================================================= */
+let toastTimer;
+function showToast(message){
+  const toast = document.getElementById("toast");
+  toast.textContent = message;
+  toast.classList.add("show");
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(()=>{ toast.classList.remove("show"); },2500);
+}
+
+/* =========================================================
+   BACK TOP
+========================================================= */
+window.addEventListener("scroll",()=>{
+  document.getElementById("backTop").classList.toggle("show", window.scrollY > 500);
+});
+
+/* =========================================================
+   CONFETTI
+========================================================= */
+function fireConfetti(){
+  const colors = ["#087cf2","#22c8ff","#a855f7","#ec4899","#fbbf24","#22c55e"];
+  for(let i=0;i<60;i++){
+    const c = document.createElement("div");
+    c.className = "confetti";
+    c.style.left = Math.random()*100 + "vw";
+    c.style.background = colors[Math.floor(Math.random()*colors.length)];
+    c.style.animationDuration = (2+Math.random()*2) + "s";
+    c.style.animationDelay = (Math.random()*0.5) + "s";
+    c.style.borderRadius = Math.random() > .5 ? "50%" : "2px";
+    document.body.appendChild(c);
+    setTimeout(()=>c.remove(),4500);
+  }
+}
+
+/* =========================================================
+   INITIALIZE
+========================================================= */
+renderProducts();
+renderFlash();
+renderRecent();
+renderCart();
+updateCounts();
+
+/* 🎵 AUTO-UNLOCK AUDIO:
+   Hanya auto-play kalau user SEBELUMNYA pernah nyalain musik
+   (tersimpan di localStorage pann_music = "1") */
+function unlockAudioOnce(){
+  if(bgMusic && !musicPlaying && localStorage.getItem("pann_music") === "1"){
+    playMusic();
+  }
+  document.removeEventListener("click", unlockAudioOnce);
+  document.removeEventListener("touchstart", unlockAudioOnce);
+  document.removeEventListener("keydown", unlockAudioOnce);
+}
+
+document.addEventListener("click", unlockAudioOnce, { once:true });
+document.addEventListener("touchstart", unlockAudioOnce, { once:true });
+document.addEventListener("keydown", unlockAudioOnce, { once:true });
+
+/* 🎵 SYNC IKON TOMBOL dengan status musik saat halaman dibuka */
+window.addEventListener("load", ()=>{
+  if(localStorage.getItem("pann_music") === "1"){
+    musicBtn.textContent = "🎵"; // masih pause sampai user klik
+  }
+});
+
+/* =========================================================
+   FIRST VISIT
+========================================================= */
+if(!localStorage.getItem("pann_welcome")){
+  notifications.unshift({ id: Date.now(), title: "👋 Selamat datang di PANN STORE!", text: "Nikmati pengalaman marketplace PANN STORE.", read: false });
+  localStorage.setItem("pann_welcome","1");
+  saveAll(); updateCounts();
+}
+
+/* =========================================================
+   KEYBOARD ESC
+========================================================= */
+document.addEventListener("keydown",e=>{
+  if(e.key==="Escape"){ closeModal(); closeCart(); }
+});
+
+document.addEventListener("submit",e=>{ e.preventDefault(); });
+window.addEventListener("beforeunload", saveAll);
+</script>
+</body>
+</html>
